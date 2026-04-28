@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    min-height: 100vh;
+    font-family: sans-serif;
+    color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#card {
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 30px;
+    width: 700px;
+}
+
+/* TOPBAR */
+#topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+#img {
+    width: 120px;
+    height: auto;
+}
+
+h1 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.buttonBack {
+    background: #0E0E53;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.buttonBack:hover { background: #2626ff; }
+
+
+#formulario {
+    background-color: #141414;
+    border-radius: 8px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+p {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 10px;
+}
+
+p:first-child { margin-top: 0; }
+
+input {
+    width: 100%;
+    height: 42px;
+    background-color: #2a2a2a;
+    border: none;
+    border-radius: 6px;
+    color: #ddd;
+    padding: 0 14px;
+    font-size: 14px;
+}
+
+/* BOTÕES */
+#btnRow {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btnEditar {
+    background: #ffffff;
+    color: #121212;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px 40px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btnEditar:hover {
+    background: #e0e0e0;
+}
+
+.btnConfirmar {
+    background: #0E0E53;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 40px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btnConfirmar:hover { background: #2626ff; }

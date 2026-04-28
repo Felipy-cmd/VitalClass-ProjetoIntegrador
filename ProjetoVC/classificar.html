@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/styles/classificar.css">
+    <title>VitalClass - Classificar</title>
+</head>
+<body>
+<div id="topbar">
+    <img id="img" src="src/image/VitalClass.png">
+    <h2>Cadastro/Triagem</h2>
+    <button class="btn-voltar">Voltar</button>
+</div>
+<div class="container">
+    <p>Nome:</p>
+    <input type="text" placeholder="Nome Completo">
+
+    <p>Sexo:</p>
+    <select type="text" placeholder="Sexo">
+        <option value="" disabled>Selecionar</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Feminino">Feminino</option>
+        </select>
+    <p>Idade:</p>
+    <input type="number" placeholder="Idade">
+
+    <p>Data/Hora:</p>
+    <input type="datetime-local">
+
+    <p>N Atendimento:</p>
+    <input type="number" placeholder="Número Atendimento">
+
+    <p>Pressão Arterial:</p>
+    <input type="number" placeholder="Pressão Arterial">
+
+    <p>Frequência Cardíaca (BPM):</p>
+    <input type="number" placeholder="Frequência Cardíaca">
+
+    <p>Temperatura:</p>
+    <input type="number" placeholder="Temperatura">
+
+    <p>Saturação de O2:</p>
+    <input type="number" placeholder="Saturação de O2">
+
+    <p>Frequência Respiratória:</p>
+    <input type="number" placeholder="Frequência Respiratória">
+
+    <p>Glicemia Capilar:</p>
+    <input type="number" placeholder="Glicemia Capilar">
+
+    <p>Sintoma Principal:</p>
+    <input type="text" placeholder="Sintoma Principal">
+
+    <p>Descrição dos Sintomas e Alergias:</p>
+    <textarea placeholder="Descreva os sintomas..."></textarea>
+
+  <p>Escala de Dor:</p>
+<div class="escala-grid">
+    <button class="face f1" onclick="selecionarDor(this, 1)"><img src="src/image/Er1.png"></button>
+    <button class="face f2" onclick="selecionarDor(this, 2)"><img src="src/image/Er2.png"></button>
+    <button class="face f3" onclick="selecionarDor(this, 3)"><img src="src/image/Er3.png"></button>
+    <button class="face f4" onclick="selecionarDor(this, 4)"><img src="src/image/Er4.png"></button>
+    <button class="face f5" onclick="selecionarDor(this, 5)"><img src="src/image/Er5.png"></button>
+    <button class="face f6" onclick="selecionarDor(this, 6)"><img src="src/image/Er6.png"></button>
+</div>
+    <input type="hidden" id="escalaDor" value="">
+
+    <p>Especialidade:</p>
+    <select>
+        <option>Clínico Geral</option>
+        <option>Cardiologia</option>
+        <option>Ortopedia</option>
+        <option>Cirurgico</option>
+        <option>Pediatrico</option>
+    </select>
+
+    <p>Protocolo Assistencial:</p>
+    <select>
+        <option>Protocolo de Sepse</option>
+        <option>Protocolo de AVC</option>
+        <option>Protocolo de IAM</option>
+    </select>
+
+    <p>Descrição do Protocolo:</p>
+    <input type="text" placeholder="Descrição do Protocolo">
+
+    <button class="btn-finalizar">Finalizar Triagem</button>
+</div>
+<footer>
+    <p style="color: #555;">VitalClass © 2026 - Triagem Inteligente</p>
+</footer>
+    <script>
+        function selecionarDor(botao, nivel) {
+            document.querySelectorAll('.face').forEach(b => b.classList.remove('selecionado'));
+            botao.classList.add('selecionado');
+            document.getElementById('escalaDor').value = nivel;
+        }
+    </script>
+</body>
+</html>

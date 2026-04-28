@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/styles/paciente.css">
+    <link rel="icon" href="src/image/LogoIcon2.png">
+    <title>VitalClass - Paciente</title>
+</head>
+<body>
+
+    <div id="topbar">
+        <img id="img" src="src/image/VitalClass.png">
+        <h2>Paciente</h2>
+        <button class="buttonBack">Voltar</button>
+    </div>
+
+    <div id="principalDiv">
+
+        <div id="infoPaciente">
+            <h3>Paciente</h3>
+            <hr>
+            <div id="camposLinha1">
+                <input type="text" placeholder="Nome Paciente">
+                <select type="text" placeholder="Sexo">
+                    <option value="" disabled selected>Sexo</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+                <input type="number" placeholder="Idade">
+                
+            </div>
+            <div id="camposLinha2">
+                <input type="text" placeholder="Alergias">
+                <button class="btnAcao">Gerar Relatorio</button>
+                <button class="btnAcao">Alterar Informações</button>
+            </div>
+        </div>
+
+        <h3 id="tituloHistorico">Histórico de Triagem</h3>
+
+        <div id="list">
+            <div class="paciente">
+                <span class="urgente laranja"></span>
+                <p class="nome">Paciente Atendido !</p>
+                <span class="hora">14:22</span>
+                <span class="data">23/04/2025</span>
+            </div>
+            <div class="paciente">
+                <span class="urgente azul"></span>
+                <p class="nome">Paciente Atendido !</p>
+                <span class="hora">23:40</span>
+                <span class="data">03/01/2026</span>
+            </div>
+        </div>
+
+    </div>
+<footer>
+    <p>VitalClass © 2026 - Triagem Inteligente</p>
+</footer>
+</body>
+</html>

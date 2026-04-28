@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    min-height: 100vh;
+    font-family: sans-serif;
+    color: #ccc;
+    padding: 20px;
+}
+
+
+#topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto 30px;
+}
+
+#img {
+    width: 170px;
+    height: auto;
+}
+
+h2 {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.buttonBack {
+    background: #0E0E53;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 40px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buttonBack:hover {
+    background: #2626ff;
+}
+
+#principalDiv {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+    gap: 24px;
+}
+
+
+#infoPaciente h3 {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #333;
+    margin-bottom: 16px;
+}
+
+#camposLinha1 {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+#camposLinha1 input:first-child {
+    flex: 2;
+}
+
+#camposLinha1 input {
+    flex: 1;
+    background: #2a2a2a;
+    border: none;
+    border-radius: 6px;
+    color: #ddd;
+    padding: 10px 14px;
+    font-size: 13px;
+    height: 40px;
+}
+
+#camposLinha2 {
+    display: flex;
+    gap: 12px;
+}
+
+#camposLinha2 input {
+    flex: 1;
+    background: #2a2a2a;
+    border: none;
+    border-radius: 6px;
+    color: #ddd;
+    padding: 10px 14px;
+    font-size: 13px;
+    height: 40px;
+}
+
+.btnAcao {
+    flex: 1;
+    background: #0E0E53;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 40px;
+}
+
+.btnAcao:hover {
+    background: #2626ff;
+}
+
+
+#tituloHistorico {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* LISTA */
+#list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.paciente {
+    display: flex;
+    align-items: center;
+    background-color: #1e1e1e;
+    border-radius: 6px;
+    padding: 16px 20px;
+    gap: 16px;
+}
+
+.paciente .nome {
+    flex: 1;
+    color: #ccc;
+    font-size: 15px;
+    font-family: monospace;
+}
+
+.hora, .data {
+    color: #888;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.urgente {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.laranja { background-color: #fb8c00; }
+.azul    { background-color: #1a1adb; }
+.vermelho { background-color: #e53935; }
+.verde   { background-color: #43a047; }
+
+select {
+    background-color: #2a2a2a;
+    color: #ddd;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    height: 40px;
+}
+
+option[disabled] {
+    color: #888;   
+}
+
+option {
+    background-color: #2a2a2a;
+    color: #ddd;
+}
+footer {
+    color: #555;
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    width: 100%;
+    margin-top: auto;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/styles/vizualizar.css">
+    <link rel="icon" href="src/image/LogoIcon2.png">
+    <title>VitalClass - Visualizar Triagem</title>
+</head>
+<body>
+  <div id="topbar"> <img id="img" src="src/image/VitalClass.png">
+<h2>Visualizar Triagem</h2>
+<button class="buttonBack">Voltar</button></div>
+<div id="topbar"></div>
+    <div id="searchBar">     
+        <button class="buttonSearch"><img src="src/image/SearchIcon.png"></button>
+        <input type="text" placeholder="Procurar Paciente (ID ou Nome)">
+    </div>
+<div id="principalDiv">
+    <div id="cards">
+    <div class="container">
+        <p>Pacientes Atendidos</p>
+        <img src="src/image/HeartIcon.png">
+        <p>0</p>
+    </div>
+    <div class="container">
+        <p>Pacientes em Espera</p>
+        <img src="src/image/WaitIcon.png">
+        <p>0</p>
+    </div>
+    <div class="container">
+        <p>Pacientes Graves</p>
+        <img src="src/image/UrgentIcon.png">
+        <p>0</p>
+    </div>
+    </div>
+<div id="list">
+    <div class="paciente">
+        <span class="urgente laranja"></span>
+        <p class="nome">Paciente 0</p>
+        <span class="status atendido">ATENDIDO</span>
+        <span class="id">#01010101</span>
+    </div>
+
+    <div class="paciente">
+        <span class="urgente vermelho"></span>
+        <p class="nome">Paciente 0</p>
+        <span class="status atendido">ATENDIDO</span>
+        <span class="id">#01010101</span>
+    </div>
+
+    <div class="paciente">
+        <span class="urgente vermelho"></span>
+        <p class="nome">Paciente 0</p>
+        <span class="status espera">EM ESPERA</span>
+        <span class="id">#01010101</span>
+    </div>
+
+    <div class="paciente">
+        <span class="urgente azul"></span>
+        <p class="nome">Paciente 0</p>
+        <span class="status espera">EM ESPERA</span>
+        <span class="id">#01010101</span>
+    </div>
+</div>
+</div>
+<footer>
+    <p>VitalClass © 2026 - Triagem Inteligente</p>
+</footer>
+</body>
+</html>

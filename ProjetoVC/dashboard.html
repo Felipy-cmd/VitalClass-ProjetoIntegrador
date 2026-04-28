@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/styles/dashboard.css">
+    <link rel="icon" href="src/image/LogoIcon2.png">
+    <title>Vital Class - Dashboard</title>
+</head>
+<body>
+
+    <div id="topbar">
+        <img id="img" src="src/image/VitalClass.png">
+        <h1 id="titulo">Dashboard</h1>
+        <button class="buttonBack">Voltar</button>
+    </div>
+
+    <div id="principalDiv">
+
+        <div id="topSection">
+
+            <!-- FILTROS -->
+            <div id="filtros">
+                <h2>Filtrar Atendimentos</h2>
+
+                <p>Situacao:</p>
+                <select>
+                    <option value="" disabled selected>Selecionar</option>
+                    <option value="Emergencia">Emergencia</option>
+                    <option value="Urgente">Urgente</option>
+                    <option value="PoucoUrgente">Pouco Urgente</option>
+                    <option value="NaoUrgente">Não Urgente</option>
+                </select>
+
+                <p>Data:</p>
+                <input type="date">
+
+                <p>Especialidade:</p>
+                <select>
+                    <option value="" disabled selected>Selecionar</option>
+                    <option>Clínico Geral</option>
+                    <option>Cardiologia</option>
+                    <option>Ortopedia</option>
+                    <option>Cirurgico</option>
+                    <option>Pediatrico</option>
+                </select>
+
+                <div class="btnRow">
+                    <button class="btnLimpar">Limpar</button>
+                    <button class="btnFiltrar">Filtrar</button>
+                </div>
+            </div>
+
+            <!-- GRÁFICO -->
+            <div id="grafico">
+                <h2>Fluxo Pacientes</h2>
+                <div class="chart-area" id="chartArea"></div>
+            </div>
+
+        </div>
+
+        <!-- ALERTAS -->
+        <div id="alertas">
+            <h2>Alerta</h2>
+            <div class="alerta-card">
+                <div class="alerta-icon">!</div>
+                <p class="alerta-msg"><strong>Paciente 12</strong> &nbsp; está em espera há 1 hora !</p>
+                <span class="alerta-id">#01010101</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="src/scripts/dashboard.js"></script>
+</body>
+</html>
