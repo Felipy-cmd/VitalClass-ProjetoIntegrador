@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/styles/cadastroUsuario.css">
+    <link rel="icon" href="src/image/LogoIcon2.png">
+    <title>Cadastro Usuario</title>
+</head>
+<body>
+
+    <div id="card">
+
+        <div id="topbar">
+            <img id="img" src="src/image/VitalClass.png">
+            <h1>Cadastro/Usuario</h1>
+            <button class="btn-voltar" onclick="window.location.href='home.html'">Voltar</button>
+        </div>
+
+        <div id="formulario">
+
+            <p>Usuario:</p>
+            <input id="nome" type="text">
+
+            <p>Email:</p>
+            <input id="email" type="email">
+
+            <p>Senha:</p>
+           <input id="senha" type="password">
+
+            <p>Confirmar Senha:</p>
+            <input id="confirmarSenha" type="password">
+
+            <div id="btnRow">
+                <button class="btnConfirmar" onclick="cadastrarUsuario()">Confirmar</button>
+            </div>
+
+        </div>
+
+    </div>
+<script src="src/scripts/cadastro.js"></script>
+<script>   
+if (!localStorage.getItem("token")) {
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>
