@@ -44,3 +44,13 @@ async function enviarTriagem() {
         console.error(e);
     }
 }
+function formatarSinaisVitais(t) {
+    return {
+        temperatura: `${t.temperatura} °C`,
+        frequencia_cardiaca: `${t.frequencia_cardiaca} BPM`,
+        saturacao: `${t.saturacao}%`,
+        pressao: `${t.pressao} mmHg`,
+        freq_respiratoria: `${t.freq_respiratoria} irpm`,
+        glicemia: `${t.glicemia} mg/dL`
+    };
+}

@@ -48,7 +48,7 @@ def login():
         return jsonify({"erro": "Email e senha são obrigatórios"}), 400
 
     conexao = conectar()
-    cursor = conexao.cursor(dictionary=True)
+    cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
     usuario = cursor.fetchone()
@@ -128,6 +128,47 @@ def home():
     return jsonify({"mensagem": "Backend VitalClass rodando"})
 
 
+def classificar_risco(dados):
+    sintoma = (dados.get("sintoma") or "").lower()
+    descricao = (dados.get("descricao") or "").lower()
+
+    temperatura = float(dados.get("temperatura") or 0)
+    saturacao = int(dados.get("saturacao") or 100)
+    frequencia = int(dados.get("frequencia_cardiaca") or 0)
+    dor = int(dados.get("escala_dor") or 0)
+
+    texto = sintoma + " " + descricao
+
+    if (
+        "inconsciente" in texto
+        or "parada" in texto
+        or "convulsão" in texto
+        or saturacao < 90
+    ):
+        return "VERMELHO"
+
+    if (
+        "falta de ar" in texto
+        or "dor no peito" in texto
+        or temperatura >= 39
+        or dor >= 5
+        or frequencia >= 130
+    ):
+        return "LARANJA"
+
+    if (
+        temperatura >= 38
+        or "vômito" in texto
+        or "tontura" in texto
+        or dor >= 3
+    ):
+        return "AMARELO"
+
+    if dor >= 1:
+        return "VERDE"
+
+    return "AZUL"
+
 @app.route("/triagem", methods=["POST"])
 def cadastrar_triagem():
     usuario = verificar_token()
@@ -137,52 +178,128 @@ def cadastrar_triagem():
 
     dados = request.get_json()
 
+    def vazio_para_none(valor):
+        return None if valor == "" or valor is None else valor
+
     conexao = conectar()
-    cursor = conexao.cursor(dictionary=True)
+    cursor = conexao.cursor()
 
-    cursor.execute("SELECT MAX(numero_atendimento) AS max_num FROM triagens")
-    resultado = cursor.fetchone()
+    try:
+        cursor.execute("SELECT MAX(numero_atendimento) AS max_num FROM triagens")
+        resultado = cursor.fetchone()
 
-    numero_atendimento = 1
+        numero_atendimento = 1
+        if resultado["max_num"]:
+            numero_atendimento = resultado["max_num"] + 1
+            classificacao = classificar_risco(dados)
 
-    if resultado["max_num"]:
-        numero_atendimento = resultado["max_num"] + 1
+        sql = """
+INSERT INTO triagens (
+    nome,
+    sexo,
+    idade,
+    data_hora,
+    numero_atendimento,
+    pressao,
+    frequencia_cardiaca,
+    temperatura,
+    saturacao,
+    freq_respiratoria,
+    glicemia,
+    sintoma,
+    descricao,
+    escala_dor,
+    especialidade,
+    protocolo,
+    descricao_protocolo,
+    classificacao
+)
+VALUES (
+    %s, %s, %s, NOW(), %s,
+    %s, %s, %s, %s, %s,
+    %s, %s, %s, %s, %s,
+    %s, %s, %s
+)
+"""
 
-    sql = """
-    INSERT INTO triagens (
-        nome, sexo, idade, data_hora, numero_atendimento,
-        pressao, frequencia_cardiaca, temperatura, saturacao,
-        freq_respiratoria, glicemia, sintoma, descricao,
-        escala_dor, especialidade, protocolo, descricao_protocolo
-    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-    """
+        valores = (
+    dados.get("nome"),
+    dados.get("sexo"),
+    vazio_para_none(dados.get("idade")),
+    numero_atendimento,
+    dados.get("pressao"),
+    vazio_para_none(dados.get("frequencia_cardiaca")),
+    vazio_para_none(dados.get("temperatura")),
+    vazio_para_none(dados.get("saturacao")),
+    vazio_para_none(dados.get("freq_respiratoria")),
+    vazio_para_none(dados.get("glicemia")),
+    dados.get("sintoma"),
+    dados.get("descricao"),
+    vazio_para_none(dados.get("escala_dor")),
+    dados.get("especialidade"),
+    dados.get("protocolo"),
+    dados.get("descricao_protocolo"),
+    classificacao
+)
 
-    valores = (
-        dados.get("nome"),
-        dados.get("sexo"),
-        dados.get("idade"),
-        datetime.datetime.now(),
-        numero_atendimento,
-        dados.get("pressao"),
-        dados.get("frequencia_cardiaca"),
-        dados.get("temperatura"),
-        dados.get("saturacao"),
-        dados.get("freq_respiratoria"),
-        dados.get("glicemia"),
-        dados.get("sintoma"),
-        dados.get("descricao"),
-        dados.get("escala_dor"),
-        dados.get("especialidade"),
-        dados.get("protocolo"),
-        dados.get("descricao_protocolo"),
-    )
+        cursor.execute(sql, valores)
+        conexao.commit()
 
-    cursor.execute(sql, valores)
-    conexao.commit()
+        return jsonify({
+    "mensagem": "Triagem cadastrada!",
+    "classificacao": classificacao
+}), 201
 
-    cursor.close()
-    conexao.close()
+    except Exception as e:
+        conexao.rollback()
+        print("ERRO AO CADASTRAR TRIAGEM:", e)
+        return jsonify({"erro": "Erro ao cadastrar triagem"}), 500
 
-    return jsonify({"mensagem": "Triagem cadastrada!"}), 201
+    finally:
+        cursor.close()
+        conexao.close()
+@app.route("/fila", methods=["GET"])
+def listar_fila():
+    usuario = verificar_token()
+
+    if not usuario:
+        return jsonify({"erro": "Token inválido"}), 401
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT 
+                id,
+                nome,
+                numero_atendimento,
+                sintoma,
+                classificacao,
+                data_hora
+            FROM triagens
+            ORDER BY
+                CASE classificacao
+                    WHEN 'VERMELHO' THEN 1
+                    WHEN 'LARANJA' THEN 2
+                    WHEN 'AMARELO' THEN 3
+                    WHEN 'VERDE' THEN 4
+                    WHEN 'AZUL' THEN 5
+                    ELSE 6
+                END,
+                data_hora ASC
+        """)
+
+        fila = cursor.fetchall()
+
+        return jsonify(fila), 200
+
+    except Exception as e:
+        print("ERRO AO LISTAR FILA:", e)
+        return jsonify({"erro": "Erro ao listar fila"}), 500
+
+    finally:
+        cursor.close()
+        conexao.close()
 if __name__ == "__main__":
     app.run(debug=True, port=5005)
