@@ -1,143 +1,102 @@
-<<<<<<< HEAD:home.html
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="src/styles/home.css">
     <link rel="icon" href="src/image/LogoIcon2.png">
+
     <title>VitalClass - Home</title>
 </head>
-<body>
-    <img id="img" src="src/image/VitalClass.png">
-    <div id="navbar">
-    <button onclick="ir('classificar.html')">Iniciar Triagem</button>
-<button onclick="ir('vizualizar.html')">Vizualizar Triagens</button>
-<button onclick="ir('paciente.html')">Buscar Pacientes</button>
-<button onclick="ir('dashboard.html')">Dashboard</button>
-<button onclick="ir('cadastroUsuario.html')">Cadastrar Usuario</button>
 
-<script>
-function ir(pagina){
-    window.location.href = pagina;
-}
-</script>
-    </div>
-    <div id="list">
-    <h2>Classificação de Risco</h2>
-    <div class="paciente">
-        <span class="urgente vermelho"></span>
-        <p>Paciente 1</p>
-        <span class="id">#01010101</span>
+<body>
+
+    <img id="img" src="src/image/VitalClass.png">
+
+    <div id="navbar">
+
+        <button onclick="ir('classificar.html')">
+            Iniciar Triagem
+        </button>
+
+        <button onclick="ir('vizualizar.html')">
+            Vizualizar Triagens
+        </button>
+
+        <button onclick="ir('paciente.html')">
+            Buscar Pacientes
+        </button>
+
+        <button onclick="ir('dashboard.html')">
+            Dashboard
+        </button>
+
+        <button onclick="ir('cadastroUsuario.html')">
+            Cadastrar Usuario
+        </button>
+
     </div>
 
-    <div class="paciente">
-        <span class="urgente laranja"></span>
-        <p>Paciente 2</p>
-        <span class="id">#01010101</span>
-    </div>
-    <div class="paciente">
-        <span class="urgente azul"></span>
-        <p>Paciente 3</p>
-        <span class="id">#01010101</span>
-    </div>
-    <div class="paciente">
-        <span class="urgente verde"></span>
-        <p>Paciente 4</p>
-        <span class="id">#01010101</span>
-    </div>
-    <div class="paciente">
-        <span class="urgente amarelo"></span>
-        <p>Paciente 5</p>
-        <span class="id">#01010101</span>
-    </div>
-</div>
-</section>
-<footer>
-    <p>VitalClass © 2026 - Triagem Inteligente</p>
-</footer>
-<script>
-if (!localStorage.getItem("token")) {
-    window.location.href = "index.html";
-}
-</script>
-</body>
-=======
-<!DOCTYPE html>
-<html lang="PT-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/styles/home.css">
-    <link rel="icon" href="src/image/LogoIcon2.png">
-    <title>VitalClass - Home</title>
-</head>
-<body>
-    <img id="img" src="src/image/VitalClass.png">
-    <div id="navbar">
-    <button>Iniciar Triagem</button>
-    <button>Buscar Pacientes</button>
-    <button>Dashboard</button>
-    <button>Cadastrar Usuario</button>
-    </div>
     <br>
+
     <div id="principalDiv">
-    <div id="cards">
-    <div class="container">
-        <p>Pacientes Atendidos</p>
-        <img src="src/image/HeartIcon.png">
-        <p>0</p>
-    </div>
-    <div class="container">
-        <p>Pacientes em Espera</p>
-        <img src="src/image/WaitIcon.png">
-        <p>0</p>
-    </div>
-    <div class="container">
-        <p>Pacientes Graves</p>
-        <img src="src/image/UrgentIcon.png">
-        <p>0</p>
-    </div>
-    </div>
-    <br>
-    <div id="list">
-    <h2>Classificação de Risco</h2>
-    <div class="paciente">
-        <span class="urgente vermelho"></span>
-        <p>Paciente 1</p>
-         <span class="status atendido">ATENDIDO!</span>
-        <span class="id">#01010101</span>
+
+        <div id="cards">
+
+            <div class="container">
+                <p>Pacientes Atendidos</p>
+
+                <img src="src/image/HeartIcon.png">
+
+                <p id="atendidos">0</p>
+            </div>
+
+            <div class="container">
+                <p>Pacientes em Espera</p>
+
+                <img src="src/image/WaitIcon.png">
+
+                <p id="espera">0</p>
+            </div>
+
+            <div class="container">
+                <p>Pacientes Graves</p>
+
+                <img src="src/image/UrgentIcon.png">
+
+                <p id="graves">0</p>
+            </div>
+
+        </div>
+
+        <div id="list">
+
+            <h2>Classificação de Risco</h2>
+
+            <div id="listaPacientes"></div>
+
+        </div>
+
     </div>
 
-    <div class="paciente">
-        <span class="urgente laranja"></span>
-        <p>Paciente 2</p>
-         <span class="status atendido">ATENDIDO!</span>
-        <span class="id">#01010101</span>
-    </div>
-    <div class="paciente">
-        <span class="urgente azul"></span>
-        <p>Paciente 3</p>
-         <span class="status atendido">ATENDIDO!</span>
-        <span class="id">#01010101</span>
-    </div>
-    <div class="paciente">
-        <span class="urgente verde"></span>
-        <p>Paciente 4</p>
-        <span class="status espera">EM ESPERA!</span>
-        <span class="id">#01010101</span>
-    </div>
-    <div class="paciente">
-        <span class="urgente amarelo"></span>
-        <p>Paciente 5</p>
-        <span class="status atendido">ATENDIDO!</span>
-        <span class="id">#01010101</span>
-    </div>
-</div>
-</section>
-<footer>
-    <p>VitalClass © 2026 - Triagem Inteligente</p>
-</footer>
+    <footer>
+        <p>VitalClass © 2026 - Triagem Inteligente</p>
+    </footer>
+
+    <script>
+
+        if (!localStorage.getItem("token")) {
+            window.location.href = "index.html";
+        }
+
+        function ir(pagina){
+            window.location.href = pagina;
+        }
+
+    </script>
+
+    <script src="src/scripts/home.js"></script>
+
 </body>
->>>>>>> b06595f (rework home page 05/18/2025):ProjetoVC/home.html
 </html>

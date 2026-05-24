@@ -129,44 +129,51 @@ def home():
 
 
 def classificar_risco(dados):
+
     sintoma = (dados.get("sintoma") or "").lower()
-    descricao = (dados.get("descricao") or "").lower()
 
     temperatura = float(dados.get("temperatura") or 0)
     saturacao = int(dados.get("saturacao") or 100)
     frequencia = int(dados.get("frequencia_cardiaca") or 0)
     dor = int(dados.get("escala_dor") or 0)
 
-    texto = sintoma + " " + descricao
-
+    # 🔴 VERMELHO
     if (
-        "inconsciente" in texto
-        or "parada" in texto
-        or "convulsão" in texto
+        sintoma == "convulsão"
+        or sintoma == "desmaio"
         or saturacao < 90
     ):
         return "VERMELHO"
 
+    # 🟠 LARANJA
     if (
-        "falta de ar" in texto
-        or "dor no peito" in texto
+        sintoma == "dor no peito"
+        or sintoma == "falta de ar"
         or temperatura >= 39
-        or dor >= 5
         or frequencia >= 130
+        or dor >= 5
     ):
         return "LARANJA"
 
+    # 🟡 AMARELO
     if (
-        temperatura >= 38
-        or "vômito" in texto
-        or "tontura" in texto
+        sintoma == "febre"
+        or sintoma == "vômito"
+        or sintoma == "tontura"
+        or temperatura >= 38
         or dor >= 3
     ):
         return "AMARELO"
 
-    if dor >= 1:
+    # 🟢 VERDE
+    if (
+        sintoma == "dor abdominal"
+        or sintoma == "trauma"
+        or dor >= 1
+    ):
         return "VERDE"
 
+    # 🔵 AZUL
     return "AZUL"
 
 @app.route("/triagem", methods=["POST"])
@@ -260,6 +267,7 @@ VALUES (
         conexao.close()
 @app.route("/fila", methods=["GET"])
 def listar_fila():
+
     usuario = verificar_token()
 
     if not usuario:
@@ -269,16 +277,20 @@ def listar_fila():
     cursor = conexao.cursor()
 
     try:
+
         cursor.execute("""
-            SELECT 
+            SELECT
                 id,
                 nome,
                 numero_atendimento,
                 sintoma,
                 classificacao,
+                status,
                 data_hora
             FROM triagens
+
             ORDER BY
+
                 CASE classificacao
                     WHEN 'VERMELHO' THEN 1
                     WHEN 'LARANJA' THEN 2
@@ -287,6 +299,7 @@ def listar_fila():
                     WHEN 'AZUL' THEN 5
                     ELSE 6
                 END,
+
                 data_hora ASC
         """)
 
@@ -295,10 +308,63 @@ def listar_fila():
         return jsonify(fila), 200
 
     except Exception as e:
+
         print("ERRO AO LISTAR FILA:", e)
-        return jsonify({"erro": "Erro ao listar fila"}), 500
+
+        return jsonify({
+            "erro": "Erro ao listar fila"
+        }), 500
 
     finally:
+
+        cursor.close()
+        conexao.close()
+@app.route("/triagem/status/<int:id>", methods=["PUT"])
+def atualizar_status(id):
+
+    usuario = verificar_token()
+
+    if not usuario:
+        return jsonify({"erro": "Token inválido"}), 401
+
+    dados = request.get_json()
+
+    status = dados.get("status")
+
+    if not status:
+        return jsonify({
+            "erro": "Status obrigatório"
+        }), 400
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+
+        cursor.execute("""
+            UPDATE triagens
+            SET status = %s
+            WHERE id = %s
+        """, (status, id))
+
+        conexao.commit()
+
+        return jsonify({
+            "mensagem": "Status atualizado"
+        }), 200
+
+    except Exception as e:
+
+        conexao.rollback()
+
+        print("ERRO AO ATUALIZAR STATUS:", e)
+
+        return jsonify({
+            "erro": "Erro ao atualizar status"
+        }), 500
+
+    finally:
+
         cursor.close()
         conexao.close()
 if __name__ == "__main__":
