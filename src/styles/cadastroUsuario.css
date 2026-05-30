@@ -7,21 +7,22 @@
 body {
     background-color: #121212;
     min-height: 100vh;
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     color: #ccc;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding: 30px;
 }
 
 #card {
     background-color: #1a1a1a;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 30px;
-    width: 700px;
+    width: 90%;
+    max-width: 1000px;
 }
 
-/* TOPBAR */
 #topbar {
     display: flex;
     align-items: center;
@@ -30,99 +31,218 @@ body {
 }
 
 #img {
-    width: 120px;
+    width: 130px;
     height: auto;
 }
 
 h1 {
     color: #fff;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 500;
 }
 
-.buttonBack {
-    background: #0E0E53;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 30px;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.buttonBack:hover { background: #2626ff; }
-
-
 #formulario {
     background-color: #141414;
-    border-radius: 8px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    border-radius: 10px;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 18px;
+    margin-bottom: 28px;
 }
 
-p {
+#formulario p {
     font-size: 13px;
     color: #aaa;
-    margin-top: 10px;
+    margin-top: 6px;
 }
 
-p:first-child { margin-top: 0; }
-
-input {
+#formulario p,
+#formulario input,
+#formulario select {
     width: 100%;
+}
+
+input,
+select {
     height: 42px;
     background-color: #2a2a2a;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 6px;
     color: #ddd;
     padding: 0 14px;
     font-size: 14px;
+    outline: none;
 }
 
-/* BOTÕES */
+input:focus,
+select:focus {
+    border-color: #2626ff;
+}
+
+input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 #btnRow {
+    grid-column: span 2;
     display: flex;
     gap: 16px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
-.btnEditar {
-    background: #ffffff;
-    color: #121212;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 12px 40px;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.btnEditar:hover {
-    background: #e0e0e0;
-}
-
-.btnConfirmar {
-    background: #0E0E53;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 40px;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.btnConfirmar:hover { background: #2626ff; }
+.btnConfirmar,
 .btn-voltar {
     background: #0E0E53;
     color: #fff;
     border: none;
-    border-radius: 6px;
-    padding: 8px 20px;
+    border-radius: 8px;
+    padding: 11px 26px;
     font-size: 14px;
     cursor: pointer;
-    align-self: flex-end;
-    margin-bottom: 10px;
+}
+
+.btnConfirmar:hover,
+.btn-voltar:hover {
+    background: #2626ff;
+}
+
+#btnRow .btnConfirmar:last-child {
+    background: #2a2a2a;
+}
+
+#btnRow .btnConfirmar:last-child:hover {
+    background: #3a3a3a;
+}
+
+#tituloLista {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+#listaUsuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.usuario-card {
+    background-color: #202020;
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-left: 5px solid #2626ff;
+}
+
+.usuario-card strong {
+    color: #fff;
+    font-size: 16px;
+}
+
+.usuario-card p {
+    color: #aaa;
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.usuario-card span {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.acoes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.acoes button {
+    background: #0E0E53;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.acoes button:hover {
+    background: #2626ff;
+}
+
+.acoes button:last-child {
+    background: #5c1515;
+}
+
+.acoes button:last-child:hover {
+    background: #b71c1c;
+}
+
+.ativo {
+    color: #43a047;
+}
+
+.inativo {
+    color: #e53935;
+}
+
+.perfil-admin {
+    border-left-color: #2626ff;
+}
+
+.perfil-enfermeiro {
+    border-left-color: #fb8c00;
+}
+
+.perfil-medico {
+    border-left-color: #43a047;
+}
+
+.perfil-recepcao {
+    border-left-color: #777;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    #card {
+        width: 100%;
+        padding: 20px;
+    }
+
+    #topbar {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    #formulario {
+        grid-template-columns: 1fr;
+    }
+
+    #btnRow {
+        grid-column: span 1;
+        flex-direction: column;
+    }
+
+    .usuario-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .acoes {
+        flex-wrap: wrap;
+    }
 }

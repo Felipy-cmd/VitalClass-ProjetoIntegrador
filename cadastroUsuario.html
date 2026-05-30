@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/styles/cadastroUsuario.css">
     <link rel="icon" href="src/image/LogoIcon2.png">
-    <title>Cadastro Usuario</title>
+    <title>Gerenciamento de Usuários</title>
 </head>
 <body>
 
@@ -13,36 +13,54 @@
 
         <div id="topbar">
             <img id="img" src="src/image/VitalClass.png">
-            <h1>Cadastro/Usuario</h1>
+            <h1>Gerenciar Usuários</h1>
             <button class="btn-voltar" onclick="window.location.href='home.html'">Voltar</button>
         </div>
 
         <div id="formulario">
 
-            <p>Usuario:</p>
+            <input type="hidden" id="usuarioId">
+
+            <p>Nome:</p>
             <input id="nome" type="text">
 
             <p>Email:</p>
             <input id="email" type="email">
 
+            <p>Perfil:</p>
+            <select id="perfil">
+                <option value="ADMIN">Administrador</option>
+                <option value="ENFERMEIRO">Enfermeiro</option>
+                <option value="MEDICO">Médico</option>
+                <option value="RECEPCAO">Recepção</option>
+            </select>
+
             <p>Senha:</p>
-           <input id="senha" type="password">
+            <input id="senha" type="password">
 
             <p>Confirmar Senha:</p>
             <input id="confirmarSenha" type="password">
 
             <div id="btnRow">
-                <button class="btnConfirmar" onclick="cadastrarUsuario()">Confirmar</button>
+                <button class="btnConfirmar" onclick="salvarUsuario()">Salvar Usuário</button>
+                <button class="btnConfirmar" onclick="limparFormulario()">Limpar</button>
             </div>
 
         </div>
 
+        <h2 id="tituloLista">Usuários Cadastrados</h2>
+
+        <div id="listaUsuarios"></div>
+
     </div>
-<script src="src/scripts/cadastro.js"></script>
-<script>   
-if (!localStorage.getItem("token")) {
-    window.location.href = "index.html";
-}
-</script>
+
+    <script>
+        if (!localStorage.getItem("token")) {
+            window.location.href = "index.html";
+        }
+    </script>
+
+    <script src="src/scripts/cadastro.js"></script>
+
 </body>
 </html>

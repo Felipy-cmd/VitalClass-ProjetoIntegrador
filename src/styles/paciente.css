@@ -7,11 +7,10 @@
 body {
     background-color: #121212;
     min-height: 100vh;
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     color: #ccc;
     padding: 20px;
 }
-
 
 #topbar {
     display: flex;
@@ -30,21 +29,6 @@ h2 {
     color: #fff;
     font-size: 30px;
     font-weight: 500;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.buttonBack {
-    background: #0E0E53;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 40px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.buttonBack:hover {
-    background: #2626ff;
 }
 
 #principalDiv {
@@ -55,10 +39,16 @@ h2 {
     gap: 24px;
 }
 
+#infoPaciente {
+    background-color: #171717;
+    border-radius: 10px;
+    padding: 24px;
+}
 
-#infoPaciente h3 {
+#infoPaciente h3,
+#tituloHistorico {
     color: #fff;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 400;
     margin-bottom: 10px;
 }
@@ -69,45 +59,42 @@ hr {
     margin-bottom: 16px;
 }
 
-#camposLinha1 {
+#camposLinha1,
+#camposLinha2 {
     display: flex;
     gap: 12px;
     margin-bottom: 12px;
 }
 
-#camposLinha1 input:first-child {
-    flex: 2;
-}
-
-#camposLinha1 input {
+input,
+select {
     flex: 1;
     background: #2a2a2a;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 6px;
     color: #ddd;
     padding: 10px 14px;
-    font-size: 13px;
-    height: 40px;
+    font-size: 14px;
+    height: 42px;
+    outline: none;
 }
 
-#camposLinha2 {
-    display: flex;
-    gap: 12px;
+input:focus,
+select:focus {
+    border-color: #2626ff;
 }
 
-#camposLinha2 input {
-    flex: 1;
-    background: #2a2a2a;
-    border: none;
-    border-radius: 6px;
-    color: #ddd;
-    padding: 10px 14px;
-    font-size: 13px;
-    height: 40px;
+input[readonly] {
+    opacity: 0.85;
+    cursor: not-allowed;
 }
 
-.btnAcao {
-    flex: 1;
+#campoBusca {
+    flex: 3;
+}
+
+.btnAcao,
+.btn-voltar {
     background: #0E0E53;
     color: #fff;
     border: none;
@@ -115,22 +102,26 @@ hr {
     padding: 10px 20px;
     font-size: 14px;
     cursor: pointer;
-    height: 40px;
+    height: 42px;
 }
 
-.btnAcao:hover {
+.btnAcao:hover,
+.btn-voltar:hover {
     background: #2626ff;
 }
 
+#btnSalvar {
+    background-color: #1b5e20;
+}
+
+#btnSalvar:hover {
+    background-color: #2e7d32;
+}
 
 #tituloHistorico {
-    color: #fff;
-    font-size: 22px;
-    font-weight: 400;
     text-align: center;
 }
 
-/* LISTA */
 #list {
     display: flex;
     flex-direction: column;
@@ -144,6 +135,13 @@ hr {
     border-radius: 6px;
     padding: 16px 20px;
     gap: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.paciente:hover {
+    background-color: #292929;
+    transform: scale(1.01);
 }
 
 .paciente .nome {
@@ -153,7 +151,8 @@ hr {
     font-family: monospace;
 }
 
-.hora, .data {
+.hora,
+.data {
     color: #888;
     font-size: 14px;
     font-family: monospace;
@@ -166,44 +165,45 @@ hr {
     flex-shrink: 0;
 }
 
-.laranja { background-color: #fb8c00; }
-.azul    { background-color: #1a1adb; }
 .vermelho { background-color: #e53935; }
-.verde   { background-color: #43a047; }
+.laranja  { background-color: #fb8c00; }
+.amarelo  { background-color: #fbc02d; }
+.verde    { background-color: #43a047; }
+.azul     { background-color: #1a1adb; }
 
-select {
-    background-color: #2a2a2a;
-    color: #ddd;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 14px;
-    height: 40px;
-}
-
-option[disabled] {
-    color: #888;   
-}
-
-option {
-    background-color: #2a2a2a;
-    color: #ddd;
-}
 footer {
     color: #555;
     text-align: center;
     padding: 10px;
     font-size: 11px;
     width: 100%;
-    margin-top: auto;
+    margin-top: 30px;
 }
-.btn-voltar {
-    background: #0E0E53;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    align-self: flex-end;
-    margin-bottom: 10px;
+
+@media (max-width: 768px) {
+    #topbar,
+    #principalDiv {
+        width: 100%;
+    }
+
+    #camposLinha1,
+    #camposLinha2 {
+        flex-direction: column;
+    }
+
+    #navbar {
+        flex-direction: column;
+    }
+
+    .paciente {
+        flex-wrap: wrap;
+    }
+
+    #img {
+        width: 130px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
 }
