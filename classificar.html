@@ -1,32 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="src/styles/classificar.css">
-
-    <title>VitalClass - Classificar</title>
+    <link rel="icon" href="src/image/LogoIcon2.png">
+    <title>VitalClass - Triagem</title>
 </head>
-
 <body>
 
     <div id="topbar">
-
         <img id="img" src="src/image/VitalClass.png">
-
-        <h2>Cadastro/Triagem</h2>
-
-        <button class="btn-voltar" onclick="window.location.href='home.html'">
-            Voltar
-        </button>
-
+        <h2>Cadastro / Triagem</h2>
+        <button class="btn-voltar" onclick="window.location.href='home.html'">Voltar</button>
     </div>
 
     <div class="container">
 
-        <p>Nome:</p>
+        <p class="sec-title">Dados do Paciente</p>
+
+        <p>Nome: <span class="req">*</span></p>
         <input id="nome" type="text" placeholder="Nome Completo">
 
         <p>Sexo:</p>
@@ -37,198 +30,149 @@
         </select>
 
         <p>Idade:</p>
-        <input id="idade" type="number" placeholder="Idade">
+        <input id="idade" type="number" placeholder="Idade" min="0" max="130">
 
-        <p>Pressão Arterial:</p>
-        <input id="pressao" type="text" placeholder="Ex: 120/80 mmHg">
+        <p class="sec-title">Sinais Vitais</p>
 
-        <p>Frequência Cardíaca (BPM):</p>
-        <input id="frequencia_cardiaca" type="number" placeholder="Ex: 82">
-
-        <p>Temperatura:</p>
-        <input id="temperatura" type="number" step="0.1" placeholder="Ex: 36.5">
-
-        <p>Saturação de O2:</p>
-        <input id="saturacao" type="number" min="0" max="100" placeholder="Ex: 97">
-
-        <p>Frequência Respiratória:</p>
-        <input id="freq_respiratoria" type="number" placeholder="Ex: 18">
-
-        <p>Glicemia Capilar:</p>
-        <input id="glicemia" type="number" placeholder="Ex: 110">
-
-        <p>Sintoma Principal:</p>
-
-        <select id="sintoma">
-
-            <option value="" selected disabled>
-                Selecione um sintoma
-            </option>
-
-            <option value="Dor no peito">
-                Dor no peito
-            </option>
-
-            <option value="Falta de ar">
-                Falta de ar
-            </option>
-
-            <option value="Febre">
-                Febre
-            </option>
-
-            <option value="Dor abdominal">
-                Dor abdominal
-            </option>
-
-            <option value="Convulsão">
-                Convulsão
-            </option>
-
-            <option value="Trauma">
-                Trauma
-            </option>
-
-            <option value="Vômito">
-                Vômito
-            </option>
-
-            <option value="Tontura">
-                Tontura
-            </option>
-
-            <option value="Desmaio">
-                Desmaio
-            </option>
-
-            <option value="Outro">
-                Outro
-            </option>
-
-        </select>
-
-        <p>Descrição dos Sintomas e Alergias:</p>
-
-        <textarea
-            id="descricao"
-            placeholder="Descreva os sintomas, alergias e observações clínicas..."></textarea>
-
-        <p>Escala de Dor:</p>
-
-        <div class="escala-grid">
-
-            <button type="button" class="face f1" onclick="selecionarDor(this, 1)">
-                <img src="src/image/Er1.png">
-            </button>
-
-            <button type="button" class="face f2" onclick="selecionarDor(this, 2)">
-                <img src="src/image/Er2.png">
-            </button>
-
-            <button type="button" class="face f3" onclick="selecionarDor(this, 3)">
-                <img src="src/image/Er3.png">
-            </button>
-
-            <button type="button" class="face f4" onclick="selecionarDor(this, 4)">
-                <img src="src/image/Er4.png">
-            </button>
-
-            <button type="button" class="face f5" onclick="selecionarDor(this, 5)">
-                <img src="src/image/Er5.png">
-            </button>
-
-            <button type="button" class="face f6" onclick="selecionarDor(this, 6)">
-                <img src="src/image/Er6.png">
-            </button>
-
+        <p>Pressão Arterial (Sistólica / Diastólica):</p>
+        <div class="pressao-wrap">
+            <input id="pressao_sistolica" type="number" placeholder="120" oninput="detectarProtocolo()">
+            <span class="barra">/</span>
+            <input id="pressao_diastolica" type="number" placeholder="80">
+            <span class="unidade">mmHg</span>
         </div>
 
-        <input type="hidden" id="escalaDor" value="">
+        <p>Frequência Cardíaca (BPM):</p>
+        <input id="frequencia_cardiaca" type="number" placeholder="Ex: 82" oninput="detectarProtocolo()">
+
+        <p>Temperatura (°C):</p>
+        <input id="temperatura" type="number" step="0.1" placeholder="Ex: 36.5" oninput="detectarProtocolo()">
+
+        <p>Saturação de O2 (%):</p>
+        <input id="saturacao" type="number" min="0" max="100" placeholder="Ex: 97">
+
+        <p>Frequência Respiratória (rpm):</p>
+        <input id="freq_respiratoria" type="number" placeholder="Ex: 18" oninput="detectarProtocolo()">
+
+        <p>Glicemia Capilar (mg/dL):</p>
+        <input id="glicemia" type="number" placeholder="Ex: 110">
+
+        <p class="sec-title">Escala de Dor</p>
+        <p>Selecione a intensidade da dor do paciente:</p>
+
+        <div class="escala-grid">
+            <button type="button" class="face f1" onclick="selecionarDor(this, 1)">
+                <img src="src/image/Er1.png" alt="Sem dor">
+                <span class="face-num">1</span>
+            </button>
+            <button type="button" class="face f2" onclick="selecionarDor(this, 2)">
+                <img src="src/image/Er2.png" alt="Dor leve">
+                <span class="face-num">2</span>
+            </button>
+            <button type="button" class="face f3" onclick="selecionarDor(this, 3)">
+                <img src="src/image/Er3.png" alt="Dor moderada">
+                <span class="face-num">3</span>
+            </button>
+            <button type="button" class="face f4" onclick="selecionarDor(this, 4)">
+                <img src="src/image/Er4.png" alt="Dor intensa">
+                <span class="face-num">4</span>
+            </button>
+            <button type="button" class="face f5" onclick="selecionarDor(this, 5)">
+                <img src="src/image/Er5.png" alt="Dor muito intensa">
+                <span class="face-num">5</span>
+            </button>
+            <button type="button" class="face f6" onclick="selecionarDor(this, 6)">
+                <img src="src/image/Er6.png" alt="Dor insuportável">
+                <span class="face-num">6</span>
+            </button>
+        </div>
+        <input type="hidden" id="escalaDor" value="0">
+
+        <p class="sec-title">Sintomas Presentes</p>
+        <p>Marque todos os sintomas que o paciente apresenta:</p>
+
+        <div class="proto-grupo">
+            <div class="proto-header iam">❤️&nbsp; Possível IAM — Infarto Agudo do Miocárdio</div>
+            <div class="cb-grid">
+                <label><input type="checkbox" value="dor_peito"        onchange="detectarProtocolo()"> Dor no peito</label>
+                <label><input type="checkbox" value="dor_peito_braco"  onchange="detectarProtocolo()"> Dor irradiando p/ braço esquerdo</label>
+                <label><input type="checkbox" value="dor_peito_dorso"  onchange="detectarProtocolo()"> Dor irradiando p/ dorso</label>
+                <label><input type="checkbox" value="falta_ar"         onchange="detectarProtocolo()"> Falta de ar</label>
+                <label><input type="checkbox" value="nausea"           onchange="detectarProtocolo()"> Náuseas</label>
+                <label><input type="checkbox" value="sudorese"         onchange="detectarProtocolo()"> Sudorese (suor frio)</label>
+            </div>
+        </div>
+
+        <div class="proto-grupo">
+            <div class="proto-header avc">🧠&nbsp; Possível AVC</div>
+            <div class="cb-grid">
+                <label><input type="checkbox" value="cefaleia_intensa"         onchange="detectarProtocolo()"> Cefaleia intensa / súbita</label>
+                <label><input type="checkbox" value="perda_forca"              onchange="detectarProtocolo()"> Perda de força (face, braço, perna)</label>
+                <label><input type="checkbox" value="dormencia_subita"         onchange="detectarProtocolo()"> Dormência súbita</label>
+                <label><input type="checkbox" value="dificuldade_falar"        onchange="detectarProtocolo()"> Dificuldade para falar</label>
+                <label><input type="checkbox" value="dificuldade_compreender"  onchange="detectarProtocolo()"> Dificuldade para compreender</label>
+                <label><input type="checkbox" value="perda_visao"              onchange="detectarProtocolo()"> Perda ou visão turva súbita</label>
+                <label><input type="checkbox" value="desmaio_consciencia"      onchange="detectarProtocolo()"> Desmaio com perda de consciência</label>
+                <label><input type="checkbox" value="crise_convulsiva"         onchange="detectarProtocolo()"> Crise convulsiva</label>
+            </div>
+        </div>
+
+        <div class="proto-grupo">
+            <div class="proto-header sepse">🦠&nbsp; Possível Sepse</div>
+            <div class="cb-grid">
+                <label><input type="checkbox" value="confusao_mental"  onchange="detectarProtocolo()"> Confusão mental</label>
+                <label><input type="checkbox" value="sonolencia"       onchange="detectarProtocolo()"> Sonolência excessiva</label>
+                <label><input type="checkbox" value="desorientacao"    onchange="detectarProtocolo()"> Desorientação</label>
+                <label><input type="checkbox" value="hipertermia"      onchange="detectarProtocolo()"> Hipertermia (febre alta)</label>
+                <label><input type="checkbox" value="sudorese_sepse"   onchange="detectarProtocolo()"> Sudorese profusa</label>
+            </div>
+            <p class="cb-hint">Hipotensão, taquicardia e taquipneia detectadas automaticamente pelos sinais vitais.</p>
+        </div>
+
+        <div class="proto-grupo">
+            <div class="proto-header outros">➕&nbsp; Outros Sintomas</div>
+            <div class="cb-grid">
+                <label><input type="checkbox" value="febre_isolada"> Febre isolada</label>
+                <label><input type="checkbox" value="vomito">        Vômito / náusea</label>
+                <label><input type="checkbox" value="tontura">       Tontura</label>
+                <label><input type="checkbox" value="trauma">        Trauma / queda</label>
+                <label><input type="checkbox" value="dor_abdominal"> Dor abdominal</label>
+            </div>
+        </div>
+
+        <p class="sec-title">Protocolo Detectado</p>
+        <div class="proto-resultado" id="proto-resultado">
+            Nenhum protocolo detectado — preencha os sintomas e sinais vitais acima
+        </div>
+
+        <p class="sec-title">Encaminhamento</p>
 
         <p>Especialidade:</p>
-
         <select id="especialidade">
-
-            <option value="Clínico Geral">
-                Clínico Geral
-            </option>
-
-            <option value="Cardiologia">
-                Cardiologia
-            </option>
-
-            <option value="Ortopedia">
-                Ortopedia
-            </option>
-
-            <option value="Cirúrgico">
-                Cirúrgico
-            </option>
-
-            <option value="Pediátrico">
-                Pediátrico
-            </option>
-
+            <option value="Clínico Geral">Clínico Geral</option>
+            <option value="Cardiologia">Cardiologia</option>
+            <option value="Neurologia">Neurologia</option>
+            <option value="Ortopedia">Ortopedia</option>
+            <option value="Cirúrgico">Cirúrgico</option>
+            <option value="Pediátrico">Pediátrico</option>
         </select>
 
-        <p>Protocolo Assistencial:</p>
+        <p>Observações do Protocolo:</p>
+        <input id="descricao_protocolo" type="text" placeholder="Observações adicionais sobre o protocolo">
 
-        <select id="protocolo">
+        <p class="sec-title">Observações Clínicas</p>
+        <p>Alergias, medicamentos em uso ou informações adicionais:</p>
+        <textarea id="descricao" placeholder="Ex: alérgico a dipirona, em uso de losartana 50mg..."></textarea>
 
-            <option value="Protocolo de Sepse">
-                Protocolo de Sepse
-            </option>
-
-            <option value="Protocolo de AVC">
-                Protocolo de AVC
-            </option>
-
-            <option value="Protocolo de IAM">
-                Protocolo de IAM
-            </option>
-
-        </select>
-
-        <p>Descrição do Protocolo:</p>
-
-        <input
-            id="descricao_protocolo"
-            type="text"
-            placeholder="Descrição do protocolo utilizado">
-
-        <button class="btn-finalizar" onclick="enviarTriagem()">
-            Finalizar Triagem
-        </button>
+        <button class="btn-finalizar" onclick="enviarTriagem()">Finalizar Triagem</button>
 
     </div>
 
     <footer>
-        <p style="color: #555;">
-            VitalClass © 2026 - Triagem Inteligente
-        </p>
+        <p style="color:#555;">VitalClass © 2026 - Triagem Inteligente</p>
     </footer>
-
-    <script>
-
-        function selecionarDor(botao, nivel) {
-
-            document
-                .querySelectorAll('.face')
-                .forEach(b => b.classList.remove('selecionado'));
-
-            botao.classList.add('selecionado');
-
-            document.getElementById('escalaDor').value = nivel;
-        }
-
-        if (!localStorage.getItem("token")) {
-            window.location.href = "index.html";
-        }
-
-    </script>
 
     <script src="src/scripts/triagem.js"></script>
 
 </body>
-
 </html>

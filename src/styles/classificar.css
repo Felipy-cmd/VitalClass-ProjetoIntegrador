@@ -14,6 +14,8 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+/* ── Container principal ── */
 .container {
     display: flex;
     flex-direction: column;
@@ -21,6 +23,17 @@ body {
     background-color: #171717;
     border-radius: 10px;
     width: 1000px;
+    padding-bottom: 20px;
+}
+
+/* ── Topbar ── */
+#topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 10px;
 }
 
 #img {
@@ -35,6 +48,22 @@ h2 {
     margin-bottom: 10px;
 }
 
+/* ── Títulos de seção ── */
+.sec-title {
+    font-size: 12px !important;
+    font-weight: bold;
+    color: #ffffff !important;
+    background: #0E0E53;
+    width: 100%;
+    max-width: 600px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 20px !important;
+    margin-bottom: 4px;
+    letter-spacing: 0.4px;
+}
+
+/* ── Labels e textos ── */
 p {
     font-size: 12px;
     color: #aaa;
@@ -44,9 +73,11 @@ p {
     max-width: 600px;
 }
 
+.req { color: #f44336; }
+
+/* ── Inputs padrão ── */
 input[type=text],
 input[type=number],
-input[type=datetime-local],
 select,
 textarea {
     width: 100%;
@@ -65,6 +96,20 @@ textarea {
     resize: none;
 }
 
+/* ── Pressão arterial (dois campos lado a lado) ── */
+.pressao-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.pressao-wrap input  { flex: 1; max-width: unset; }
+.pressao-wrap .barra   { color: #aaa; font-size: 16px; }
+.pressao-wrap .unidade { color: #aaa; font-size: 12px; white-space: nowrap; }
+
+/* ── Botões ── */
 .btn-voltar {
     background: #0E0E53;
     color: #fff;
@@ -73,45 +118,7 @@ textarea {
     padding: 8px 20px;
     font-size: 14px;
     cursor: pointer;
-    align-self: flex-end;
-    margin-bottom: 10px;
 }
-
-.escala-grid {
-    display: flex;  
-    gap: 8px;
-    width: 110%;
-    max-width: 600px;
-    margin-top: 8px;
-   justify-content: center;
-}
-
-.face {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid;
-    background: transparent;
-    font-size: 22px;
-    cursor: pointer;
-    transition: transform 0.1s, background 0.2s;
-}
-
-.face:hover { transform: scale(1.1); }
-
-.f1 { border-color: #00ff37; }
-.f2 { border-color: #568603; }
-.f3 { border-color: #cddc39; }
-.f4 { border-color: #ff9800; }
-.f5 { border-color: #f44336; }
-.f6 { border-color: #b71c1c; }
-
-.face.selecionado.f1 { background: #00ff3725; }
-.face.selecionado.f2 { background: #56860325; }
-.face.selecionado.f3 { background: #ccdc394a; }
-.face.selecionado.f4 { background: #ff99003e; }
-.face.selecionado.f5 { background: #f443364f; }
-.face.selecionado.f6 { background: #b71c1c4a; }
 
 .btn-finalizar {
     background: #0E0E53;
@@ -121,25 +128,144 @@ textarea {
     padding: 12px 28px;
     font-size: 15px;
     cursor: pointer;
-    margin-top: 20px;
-    align-self: flex-end;
-    margin: 50px;
+    margin: 30px 0;
 }
 
 .btn-finalizar:hover,
 .btn-voltar:hover {
     background: #2626ff;
 }
-.face img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-#topbar {
+
+/* ── Escala de dor ── */
+.escala-grid {
     display: flex;
-    align-items: center;
-    justify-content: space-between; 
+    gap: 8px;
     width: 100%;
     max-width: 600px;
-    margin-bottom: 10px;
+    margin-top: 8px;
+    justify-content: center;
+}
+
+.face {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 72px;
+    border-radius: 10px;
+    border: 2px solid;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.2s;
+    padding: 4px;
+    gap: 3px;
+}
+
+.face img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}
+
+.face-num {
+    font-size: 11px;
+    color: #aaa;
+}
+
+.face:hover { transform: scale(1.07); }
+
+.f1 { border-color: #00ff37; }
+.f2 { border-color: #8bc34a; }
+.f3 { border-color: #cddc39; }
+.f4 { border-color: #ff9800; }
+.f5 { border-color: #f44336; }
+.f6 { border-color: #b71c1c; }
+
+.face.selecionado.f1 { background: #00ff3730; }
+.face.selecionado.f2 { background: #8bc34a30; }
+.face.selecionado.f3 { background: #cddc3930; }
+.face.selecionado.f4 { background: #ff980030; }
+.face.selecionado.f5 { background: #f4433630; }
+.face.selecionado.f6 { background: #b71c1c30; }
+
+/* ── Grupos de protocolo com checkboxes ── */
+.proto-grupo {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 12px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.proto-header {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 7px 12px;
+    color: #fff;
+    letter-spacing: 0.3px;
+}
+
+.proto-header.iam    { background: #7f1d1d; }
+.proto-header.avc    { background: #1e3a5f; }
+.proto-header.sepse  { background: #1a3d2b; }
+.proto-header.outros { background: #2d2d2d; }
+
+.cb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 10px 12px;
+}
+
+.cb-grid label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #ccc;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+.cb-grid input[type=checkbox] {
+    width: 15px;
+    height: 15px;
+    min-width: 15px;
+    cursor: pointer;
+    accent-color: #2626ff;
+}
+
+.cb-hint {
+    font-size: 11px;
+    color: #555;
+    padding: 0 12px 8px;
+    font-style: italic;
+}
+
+/* ── Caixa de protocolo detectado ── */
+.proto-resultado {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 6px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #555;
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    transition: all 0.2s;
+}
+
+.proto-resultado.ativo          { font-weight: bold; }
+.proto-resultado.ativo.iam      { background: #3b0f0f; border-color: #7f1d1d; color: #fca5a5; }
+.proto-resultado.ativo.avc      { background: #0f1e33; border-color: #1e3a5f; color: #93c5fd; }
+.proto-resultado.ativo.sepse    { background: #0d2116; border-color: #1a3d2b; color: #86efac; }
+
+/* ── Footer ── */
+footer {
+    margin-top: 30px;
+    color: #555;
+    font-size: 12px;
 }

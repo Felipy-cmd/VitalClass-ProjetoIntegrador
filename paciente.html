@@ -5,67 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/styles/paciente.css">
     <link rel="icon" href="src/image/LogoIcon2.png">
-    <title>VitalClass - Histórico do Paciente</title>
+    <title>VitalClass - Paciente</title>
 </head>
 <body>
 
     <div id="topbar">
         <img id="img" src="src/image/VitalClass.png">
-        <h2>Histórico do Paciente</h2>
+        <h2>Paciente</h2>
         <button class="btn-voltar" onclick="window.location.href='home.html'">Voltar</button>
     </div>
 
     <div id="principalDiv">
 
         <div id="infoPaciente">
-            <h3>Pesquisar Paciente / Atendimento</h3>
+            <h3>Paciente</h3>
             <hr>
-
             <div id="camposLinha1">
-                <input id="campoBusca" type="text" placeholder="Digite nome ou número de atendimento">
-                <button class="btnAcao" onclick="buscarTriagens()">Pesquisar</button>
+                <input type="text" placeholder="Nome Paciente">
+                <select type="text" placeholder="Sexo">
+                    <option value="" disabled selected>Sexo</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                </select>
+                <input type="number" placeholder="Idade">
+                
             </div>
-
-            <br>
-
-            <h3>Dados da Triagem Selecionada</h3>
-
-            <div id="camposLinha1">
-                <input id="nomePaciente" type="text" placeholder="Nome Paciente" readonly>
-                <input id="sexoPaciente" type="text" placeholder="Sexo" readonly>
-                <input id="idadePaciente" type="number" placeholder="Idade" readonly>
-            </div>
-
             <div id="camposLinha2">
-                <input id="classificacaoPaciente" type="text" placeholder="Classificação" readonly>
-                <input id="statusPaciente" type="text" placeholder="Status" readonly>
-                <input id="atendimentoPaciente" type="text" placeholder="Nº Atendimento" readonly>
-            </div>
-
-            <div id="camposLinha2">
-                <button class="btnAcao" onclick="gerarRelatorio()">Gerar Relatório</button>
-                <button id="btnEditar" class="btnAcao" onclick="habilitarEdicao()">Alterar Informações</button>
-                <button id="btnSalvar" class="btnAcao" onclick="salvarEdicao()" style="display:none;">Salvar Alterações</button>
+                <input type="text" placeholder="Alergias">
+                <input type="number" placeholder="CPF">
+                <input type="number" placeholder="Telefone">
+                <button class="btnAcao">Gerar Relatorio</button>
+                <button class="btnAcao">Alterar Informações</button>
             </div>
         </div>
 
         <h3 id="tituloHistorico">Histórico de Triagem</h3>
 
-        <div id="list"></div>
+        <div id="list">
+            <div class="paciente">
+                <span class="urgente laranja"></span>
+                <p class="nome">Paciente Atendido !</p>
+                <span class="hora">14:22</span>
+                <span class="data">23/04/2025</span>
+            </div>
+            <div class="paciente">
+                <span class="urgente azul"></span>
+                <p class="nome">Paciente Atendido !</p>
+                <span class="hora">23:40</span>
+                <span class="data">03/01/2026</span>
+            </div>
+        </div>
 
     </div>
-
-    <footer>
-        <p>VitalClass © 2026 - Triagem Inteligente</p>
-    </footer>
-
-    <script>
-        if (!localStorage.getItem("token")) {
-            window.location.href = "index.html";
-        }
-    </script>
-
-    <script src="src/scripts/paciente.js"></script>
-
+<footer>
+    <p>VitalClass © 2026 - Triagem Inteligente</p>
+</footer>
+<script>
+if (!localStorage.getItem("token")) {
+    window.location.href = "index.html";
+}
+</script>
 </body>
 </html>
