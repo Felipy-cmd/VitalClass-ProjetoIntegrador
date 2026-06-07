@@ -7,7 +7,7 @@
 body {
     background-color: #121212;
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: sans-serif;
     color: #ccc;
     padding: 20px;
 }
@@ -29,9 +29,6 @@ h2 {
     color: #fff;
     font-size: 30px;
     font-weight: 500;
-<<<<<<< Updated upstream
-}
-=======
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -46,7 +43,6 @@ h2 {
 }
 
 .btn-voltar:hover { background: #2626ff; }
->>>>>>> Stashed changes
 
 #principalDiv {
     display: flex;
@@ -56,21 +52,10 @@ h2 {
     gap: 24px;
 }
 
-<<<<<<< Updated upstream
-#infoPaciente {
-    background-color: #171717;
-    border-radius: 10px;
-    padding: 24px;
-}
-
-#infoPaciente h3,
-#tituloHistorico {
-=======
 #infoPaciente h3,
 #resultadoBusca h3 {
->>>>>>> Stashed changes
     color: #fff;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 400;
     margin-bottom: 10px;
 }
@@ -81,48 +66,43 @@ hr {
     margin-bottom: 16px;
 }
 
-#camposLinha1,
-#camposLinha2 {
+#camposLinha1 {
     display: flex;
     gap: 12px;
     margin-bottom: 12px;
 }
 
-<<<<<<< Updated upstream
-input,
-select {
-=======
 #camposLinha1 input:first-child { flex: 2; }
 
 #camposLinha1 input {
->>>>>>> Stashed changes
     flex: 1;
     background: #2a2a2a;
-    border: 1px solid transparent;
+    border: none;
     border-radius: 6px;
     color: #ddd;
     padding: 10px 14px;
-    font-size: 14px;
-    height: 42px;
-    outline: none;
+    font-size: 13px;
+    height: 40px;
 }
 
-input:focus,
-select:focus {
-    border-color: #2626ff;
+#camposLinha2 {
+    display: flex;
+    gap: 12px;
 }
 
-input[readonly] {
-    opacity: 0.85;
-    cursor: not-allowed;
+#camposLinha2 input {
+    flex: 1;
+    background: #2a2a2a;
+    border: none;
+    border-radius: 6px;
+    color: #ddd;
+    padding: 10px 14px;
+    font-size: 13px;
+    height: 40px;
 }
 
-#campoBusca {
-    flex: 3;
-}
-
-.btnAcao,
-.btn-voltar {
+.btnAcao {
+    flex: 1;
     background: #0E0E53;
     color: #fff;
     border: none;
@@ -130,27 +110,15 @@ input[readonly] {
     padding: 10px 20px;
     font-size: 14px;
     cursor: pointer;
-    height: 42px;
+    height: 40px;
 }
 
-<<<<<<< Updated upstream
-.btnAcao:hover,
-.btn-voltar:hover {
-    background: #2626ff;
-}
-
-#btnSalvar {
-    background-color: #1b5e20;
-}
-
-#btnSalvar:hover {
-    background-color: #2e7d32;
-}
-=======
 .btnAcao:hover { background: #2626ff; }
->>>>>>> Stashed changes
 
 #tituloHistorico {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 400;
     text-align: center;
 }
 
@@ -167,13 +135,6 @@ input[readonly] {
     border-radius: 6px;
     padding: 16px 20px;
     gap: 16px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.paciente:hover {
-    background-color: #292929;
-    transform: scale(1.01);
 }
 
 .paciente .nome {
@@ -183,8 +144,7 @@ input[readonly] {
     font-family: monospace;
 }
 
-.hora,
-.data {
+.hora, .data {
     color: #888;
     font-size: 14px;
     font-family: monospace;
@@ -199,12 +159,6 @@ input[readonly] {
 
 .vermelho { background-color: #e53935; }
 .laranja  { background-color: #fb8c00; }
-<<<<<<< Updated upstream
-.amarelo  { background-color: #fbc02d; }
-.verde    { background-color: #43a047; }
-.azul     { background-color: #1a1adb; }
-
-=======
 .amarelo  { background-color: #fdd835; }
 .verde    { background-color: #43a047; }
 .azul     { background-color: #1a1adb; }
@@ -221,44 +175,15 @@ select {
 option[disabled] { color: #888; }
 option { background-color: #2a2a2a; color: #ddd; }
 
->>>>>>> Stashed changes
 footer {
     color: #555;
     text-align: center;
     padding: 10px;
     font-size: 11px;
     width: 100%;
-    margin-top: 30px;
+    margin-top: auto;
 }
 
-<<<<<<< Updated upstream
-@media (max-width: 768px) {
-    #topbar,
-    #principalDiv {
-        width: 100%;
-    }
-
-    #camposLinha1,
-    #camposLinha2 {
-        flex-direction: column;
-    }
-
-    #navbar {
-        flex-direction: column;
-    }
-
-    .paciente {
-        flex-wrap: wrap;
-    }
-
-    #img {
-        width: 130px;
-    }
-
-    h2 {
-        font-size: 22px;
-    }
-=======
 /* ── Sugestões de busca ── */
 #listaSugestoes {
     display: flex;
@@ -302,6 +227,7 @@ footer {
     margin-left: auto;
 }
 
+/* ── Impressão ── */
 @media print {
     body > *         { display: none !important; }
     #areaImpressao   { display: block !important; color: #000; }
@@ -313,7 +239,7 @@ footer {
     }
 }
 
-
+/* ── Botão imprimir na linha da triagem ── */
 .btn-imprimir {
     background: #0E0E53;
     color: #fff;
@@ -326,7 +252,7 @@ footer {
 }
 .btn-imprimir:hover { background: #2626ff; }
 
-
+/* ── Relatório de impressão ── */
 #areaImpressao { display: none; }
 
 @media print {
@@ -347,5 +273,4 @@ footer {
     hr { border: none; border-top: 1px solid #ccc; margin: 12px 0; }
 
     .rel-footer { text-align: center; margin-top: 30px; font-size: 11px; color: #aaa; }
->>>>>>> Stashed changes
 }

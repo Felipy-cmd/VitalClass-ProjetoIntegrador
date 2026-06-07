@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VitalClass - Dashboard</title>
-
     <link rel="stylesheet" href="src/styles/dashboard.css">
     <link rel="icon" href="src/image/LogoIcon2.png">
 </head>
 <body>
-
     <header id="topbar">
         <img id="img" src="src/image/VitalClass.png">
         <div>
@@ -18,76 +16,54 @@
         </div>
         <button class="btn-voltar" onclick="window.location.href='home.html'">Voltar</button>
     </header>
-
     <main id="principalDiv">
-
         <section id="cardsResumo">
             <div class="card indicador azul-card">
                 <p>Total de Triagens</p>
                 <h2 id="totalTriagens">0</h2>
                 <span>Registros no sistema</span>
             </div>
-
             <div class="card indicador verde-card">
                 <p>Atendidos</p>
                 <h2 id="totalAtendidos">0</h2>
                 <span>Pacientes finalizados</span>
             </div>
-
             <div class="card indicador laranja-card">
                 <p>Em Espera</p>
                 <h2 id="totalEspera">0</h2>
                 <span>Aguardando atendimento</span>
             </div>
-
-<<<<<<< Updated upstream
             <div class="card indicador vermelho-card">
                 <p>Casos Graves</p>
                 <h2 id="totalGraves">0</h2>
                 <span>Vermelho e Laranja</span>
             </div>
         </section>
-
         <section id="areaDashboard">
-
             <div class="card grafico-card">
                 <h2>Distribuição por Classificação</h2>
                 <p class="subtitulo">Quantidade de pacientes por prioridade</p>
                 <div id="graficoClassificacao"></div>
             </div>
-
             <div class="card lista-card">
                 <h2>Próximos Atendimentos</h2>
                 <p class="subtitulo">Fila ordenada por prioridade</p>
                 <div id="listaProximos"></div>
             </div>
-
         </section>
-
         <section class="card alerta-card">
             <h2>Alertas Operacionais</h2>
             <div id="alertasDashboard"></div>
         </section>
-
     </main>
-
     <footer>
         <p>VitalClass © 2026 - Triagem Inteligente</p>
     </footer>
-
     <script>
         if (!localStorage.getItem("token")) {
             window.location.href = "index.html";
         }
     </script>
-
-=======
-    </div>
-    <footer>
-    <p>VitalClass © 2026 - Triagem Inteligente</p>
-</footer>
->>>>>>> Stashed changes
     <script src="src/scripts/dashboard.js"></script>
-
 </body>
 </html>

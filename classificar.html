@@ -32,15 +32,12 @@
         <p>Idade:</p>
         <input id="idade" type="number" placeholder="Idade" min="0" max="130">
 
-<<<<<<< Updated upstream
-=======
         <p>CPF:</p>
         <input id="cpf" type="text" placeholder="000.000.000-00" maxlength="14">
 
         <p>Telefone:</p>
         <input id="telefone" type="text" placeholder="(00) 00000-0000" maxlength="15">
 
->>>>>>> Stashed changes
         <p class="sec-title">Sinais Vitais</p>
 
         <p>Pressão Arterial (Sistólica / Diastólica):</p>
@@ -71,30 +68,6 @@
 
         <div class="escala-grid">
             <button type="button" class="face f1" onclick="selecionarDor(this, 1)">
-<<<<<<< Updated upstream
-                <img src="src/image/Er1.png" alt="Sem dor">
-                <span class="face-num">1</span>
-            </button>
-            <button type="button" class="face f2" onclick="selecionarDor(this, 2)">
-                <img src="src/image/Er2.png" alt="Dor leve">
-                <span class="face-num">2</span>
-            </button>
-            <button type="button" class="face f3" onclick="selecionarDor(this, 3)">
-                <img src="src/image/Er3.png" alt="Dor moderada">
-                <span class="face-num">3</span>
-            </button>
-            <button type="button" class="face f4" onclick="selecionarDor(this, 4)">
-                <img src="src/image/Er4.png" alt="Dor intensa">
-                <span class="face-num">4</span>
-            </button>
-            <button type="button" class="face f5" onclick="selecionarDor(this, 5)">
-                <img src="src/image/Er5.png" alt="Dor muito intensa">
-                <span class="face-num">5</span>
-            </button>
-            <button type="button" class="face f6" onclick="selecionarDor(this, 6)">
-                <img src="src/image/Er6.png" alt="Dor insuportável">
-                <span class="face-num">6</span>
-=======
                 <img src="src/image/Er1.png" alt="Sem dor"><span class="face-num">1</span>
             </button>
             <button type="button" class="face f2" onclick="selecionarDor(this, 2)">
@@ -111,7 +84,6 @@
             </button>
             <button type="button" class="face f6" onclick="selecionarDor(this, 6)">
                 <img src="src/image/Er6.png" alt="Dor insuportável"><span class="face-num">6</span>
->>>>>>> Stashed changes
             </button>
         </div>
         <input type="hidden" id="escalaDor" value="0">
@@ -120,11 +92,7 @@
         <p>Marque todos os sintomas que o paciente apresenta:</p>
 
         <div class="proto-grupo">
-<<<<<<< Updated upstream
-            <div class="proto-header iam">❤️&nbsp; Possível IAM — Infarto Agudo do Miocárdio</div>
-=======
             <div class="proto-header iam">❤️ Possível IAM — Infarto Agudo do Miocárdio</div>
->>>>>>> Stashed changes
             <div class="cb-grid">
                 <label><input type="checkbox" value="dor_peito"        onchange="detectarProtocolo()"> Dor no peito</label>
                 <label><input type="checkbox" value="dor_peito_braco"  onchange="detectarProtocolo()"> Dor irradiando p/ braço esquerdo</label>
@@ -136,18 +104,6 @@
         </div>
 
         <div class="proto-grupo">
-<<<<<<< Updated upstream
-            <div class="proto-header avc">🧠&nbsp; Possível AVC</div>
-            <div class="cb-grid">
-                <label><input type="checkbox" value="cefaleia_intensa"         onchange="detectarProtocolo()"> Cefaleia intensa / súbita</label>
-                <label><input type="checkbox" value="perda_forca"              onchange="detectarProtocolo()"> Perda de força (face, braço, perna)</label>
-                <label><input type="checkbox" value="dormencia_subita"         onchange="detectarProtocolo()"> Dormência súbita</label>
-                <label><input type="checkbox" value="dificuldade_falar"        onchange="detectarProtocolo()"> Dificuldade para falar</label>
-                <label><input type="checkbox" value="dificuldade_compreender"  onchange="detectarProtocolo()"> Dificuldade para compreender</label>
-                <label><input type="checkbox" value="perda_visao"              onchange="detectarProtocolo()"> Perda ou visão turva súbita</label>
-                <label><input type="checkbox" value="desmaio_consciencia"      onchange="detectarProtocolo()"> Desmaio com perda de consciência</label>
-                <label><input type="checkbox" value="crise_convulsiva"         onchange="detectarProtocolo()"> Crise convulsiva</label>
-=======
             <div class="proto-header avc">🧠 Possível AVC</div>
             <div class="cb-grid">
                 <label><input type="checkbox" value="cefaleia_intensa"        onchange="detectarProtocolo()"> Cefaleia intensa / súbita</label>
@@ -158,16 +114,11 @@
                 <label><input type="checkbox" value="perda_visao"             onchange="detectarProtocolo()"> Perda ou visão turva súbita</label>
                 <label><input type="checkbox" value="desmaio_consciencia"     onchange="detectarProtocolo()"> Desmaio com perda de consciência</label>
                 <label><input type="checkbox" value="crise_convulsiva"        onchange="detectarProtocolo()"> Crise convulsiva</label>
->>>>>>> Stashed changes
             </div>
         </div>
 
         <div class="proto-grupo">
-<<<<<<< Updated upstream
-            <div class="proto-header sepse">🦠&nbsp; Possível Sepse</div>
-=======
             <div class="proto-header sepse">🦠 Possível Sepse</div>
->>>>>>> Stashed changes
             <div class="cb-grid">
                 <label><input type="checkbox" value="confusao_mental"  onchange="detectarProtocolo()"> Confusão mental</label>
                 <label><input type="checkbox" value="sonolencia"       onchange="detectarProtocolo()"> Sonolência excessiva</label>
@@ -175,18 +126,10 @@
                 <label><input type="checkbox" value="hipertermia"      onchange="detectarProtocolo()"> Hipertermia (febre alta)</label>
                 <label><input type="checkbox" value="sudorese_sepse"   onchange="detectarProtocolo()"> Sudorese profusa</label>
             </div>
-<<<<<<< Updated upstream
-            <p class="cb-hint">Hipotensão, taquicardia e taquipneia detectadas automaticamente pelos sinais vitais.</p>
-        </div>
-
-        <div class="proto-grupo">
-            <div class="proto-header outros">➕&nbsp; Outros Sintomas</div>
-=======
         </div>
 
         <div class="proto-grupo">
             <div class="proto-header outros">➕ Outros Sintomas</div>
->>>>>>> Stashed changes
             <div class="cb-grid">
                 <label><input type="checkbox" value="febre_isolada"> Febre isolada</label>
                 <label><input type="checkbox" value="vomito">        Vômito / náusea</label>
@@ -231,8 +174,4 @@
     <script src="src/scripts/triagem.js"></script>
 
 </body>
-<<<<<<< Updated upstream
 </html>
-=======
-</html>
->>>>>>> Stashed changes
