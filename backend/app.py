@@ -122,38 +122,40 @@ def cadastrar_triagem():
         classificacao = classificar_risco(dados)
 
         sql = """
-            INSERT INTO triagens (
-                nome, sexo, idade, data_hora, numero_atendimento,
-                pressao, frequencia_cardiaca, temperatura, saturacao,
-                freq_respiratoria, glicemia, sintoma, descricao,
-                escala_dor, especialidade, protocolo, descricao_protocolo,
-                classificacao
-            ) VALUES (
-                %s, %s, %s, NOW(), %s,
-                %s, %s, %s, %s, %s,
-                %s, %s, %s, %s, %s,
-                %s, %s, %s
-            )
-        """
+    INSERT INTO triagens (
+        nome, sexo, idade, cpf, telefone, data_hora, numero_atendimento,
+        pressao, frequencia_cardiaca, temperatura, saturacao,
+        freq_respiratoria, glicemia, sintoma, descricao,
+        escala_dor, especialidade, protocolo, descricao_protocolo,
+        classificacao
+    ) VALUES (
+        %s, %s, %s, %s, %s, NOW(), %s,
+        %s, %s, %s, %s, %s,
+        %s, %s, %s, %s,
+        %s, %s, %s, %s
+    )
+"""
         valores = (
-            dados.get("nome"),
-            dados.get("sexo"),
-            vazio_para_none(dados.get("idade")),
-            numero_atendimento,
-            dados.get("pressao"),
-            vazio_para_none(dados.get("frequencia_cardiaca")),
-            vazio_para_none(dados.get("temperatura")),
-            vazio_para_none(dados.get("saturacao")),
-            vazio_para_none(dados.get("freq_respiratoria")),
-            vazio_para_none(dados.get("glicemia")),
-            dados.get("sintoma"),
-            dados.get("descricao"),
-            vazio_para_none(dados.get("escala_dor")),
-            dados.get("especialidade"),
-            dados.get("protocolo"),
-            dados.get("descricao_protocolo"),
-            classificacao
-        )
+    dados.get("nome"),
+    dados.get("sexo"),
+    vazio_para_none(dados.get("idade")),
+    dados.get("cpf"),
+    dados.get("telefone"),
+    numero_atendimento,
+    dados.get("pressao"),
+    vazio_para_none(dados.get("frequencia_cardiaca")),
+    vazio_para_none(dados.get("temperatura")),
+    vazio_para_none(dados.get("saturacao")),
+    vazio_para_none(dados.get("freq_respiratoria")),
+    vazio_para_none(dados.get("glicemia")),
+    dados.get("sintoma"),
+    dados.get("descricao"),
+    vazio_para_none(dados.get("escala_dor")),
+    dados.get("especialidade"),
+    dados.get("protocolo"),
+    dados.get("descricao_protocolo"),
+    classificacao
+)
 
         cursor.execute(sql, valores)
         conexao.commit()
@@ -251,28 +253,48 @@ def buscar_pacientes():
     usuario = verificar_token()
     if not usuario:
         return jsonify({"erro": "Token inválido"}), 401
+
     nome = request.args.get("nome", "").strip()
-    if not nome:
+    cpf = request.args.get("cpf", "").strip()
+
+    if not nome and not cpf:
         return jsonify([]), 200
+
     conexao = conectar()
-    cursor  = conexao.cursor()
+    cursor = conexao.cursor()
+
     try:
-        cursor.execute("""
-            SELECT DISTINCT ON (nome)
-                nome, sexo, idade, classificacao,
-                data_hora AS ultima_triagem
-            FROM triagens
-            WHERE nome ILIKE %s
-            ORDER BY nome, data_hora DESC
-        """, (f"%{nome}%",))
+        if cpf:
+            cursor.execute("""
+                SELECT DISTINCT ON (cpf)
+                    nome, sexo, idade, cpf, telefone,
+                    classificacao, data_hora AS ultima_triagem
+                FROM triagens
+                WHERE cpf ILIKE %s
+                ORDER BY cpf, data_hora DESC
+            """, (f"%{cpf}%",))
+        else:
+            cursor.execute("""
+                SELECT DISTINCT ON (nome)
+                    nome, sexo, idade, cpf, telefone,
+                    classificacao, data_hora AS ultima_triagem
+                FROM triagens
+                WHERE nome ILIKE %s
+                ORDER BY nome, data_hora DESC
+            """, (f"%{nome}%",))
+
         pacientes = cursor.fetchall()
+
         for p in pacientes:
             if p.get("ultima_triagem"):
                 p["ultima_triagem"] = p["ultima_triagem"].isoformat()
+
         return jsonify(pacientes), 200
+
     except Exception as e:
         print("ERRO AO BUSCAR PACIENTES:", e)
         return jsonify({"erro": "Erro ao buscar pacientes"}), 500
+
     finally:
         cursor.close()
         conexao.close()

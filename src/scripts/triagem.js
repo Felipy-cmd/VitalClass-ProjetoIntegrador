@@ -91,6 +91,7 @@ async function enviarTriagem() {
         freq_respiratoria:   document.getElementById("freq_respiratoria").value,
         glicemia:            document.getElementById("glicemia").value,
         sintomas_checkboxes: coletarCheckboxes(),
+        sintoma: coletarCheckboxes().join(", "),
         descricao:           document.getElementById("descricao").value,
         escala_dor:          document.getElementById("escalaDor").value,
         especialidade:       document.getElementById("especialidade").value,

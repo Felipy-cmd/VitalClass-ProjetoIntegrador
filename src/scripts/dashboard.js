@@ -76,7 +76,7 @@ function montarListaProximos(lista) {
 
                 <div class="dados-paciente">
                     <strong>${p.nome}</strong>
-                    <small>#${p.numero_atendimento} • ${p.sintoma}</small>
+                    <small>#${p.numero_atendimento} • ${p.sintoma || "Sem sintoma informado"}</small>
                 </div>
 
                 <span class="tag-status">${p.status}</span>
