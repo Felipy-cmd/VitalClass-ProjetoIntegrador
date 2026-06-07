@@ -112,7 +112,13 @@ def cadastrar_triagem():
     try:
         cursor.execute("SELECT MAX(numero_atendimento) AS max_num FROM triagens")
         resultado = cursor.fetchone()
+
         numero_atendimento = (resultado["max_num"] or 0) + 1
+
+
+        numero_atendimento = 1
+        if resultado["max_num"]:
+            numero_atendimento = resultado["max_num"] + 1
         classificacao = classificar_risco(dados)
 
         sql = """
@@ -294,6 +300,103 @@ def historico_paciente(nome):
     except Exception as e:
         print("ERRO AO BUSCAR HISTÓRICO:", e)
         return jsonify({"erro": "Erro ao buscar histórico"}), 500
+    finally:
+        cursor.close()
+        conexao.close()
+
+@app.route("/dashboard", methods=["GET"])
+def dashboard():
+    usuario = verificar_token()
+
+    if not usuario:
+        return jsonify({"erro": "Token inválido"}), 401
+
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT COUNT(*) AS total
+            FROM triagens
+        """)
+        total = cursor.fetchone()["total"]
+
+        cursor.execute("""
+            SELECT COUNT(*) AS total
+            FROM triagens
+            WHERE status = 'FINALIZADO'
+        """)
+        atendidos = cursor.fetchone()["total"]
+
+        cursor.execute("""
+            SELECT COUNT(*) AS total
+            FROM triagens
+            WHERE status != 'FINALIZADO'
+        """)
+        em_espera = cursor.fetchone()["total"]
+
+        cursor.execute("""
+            SELECT COUNT(*) AS total
+            FROM triagens
+            WHERE classificacao IN ('VERMELHO', 'LARANJA')
+            AND status != 'FINALIZADO'
+        """)
+        graves = cursor.fetchone()["total"]
+
+        cursor.execute("""
+            SELECT classificacao, COUNT(*) AS total
+            FROM triagens
+            GROUP BY classificacao
+            ORDER BY
+                CASE classificacao
+                    WHEN 'VERMELHO' THEN 1
+                    WHEN 'LARANJA' THEN 2
+                    WHEN 'AMARELO' THEN 3
+                    WHEN 'VERDE' THEN 4
+                    WHEN 'AZUL' THEN 5
+                    ELSE 6
+                END
+        """)
+        por_classificacao = cursor.fetchall()
+
+        cursor.execute("""
+            SELECT
+                id,
+                nome,
+                numero_atendimento,
+                classificacao,
+                status,
+                sintoma,
+                data_hora
+            FROM triagens
+            WHERE status != 'FINALIZADO'
+            ORDER BY
+                CASE classificacao
+                    WHEN 'VERMELHO' THEN 1
+                    WHEN 'LARANJA' THEN 2
+                    WHEN 'AMARELO' THEN 3
+                    WHEN 'VERDE' THEN 4
+                    WHEN 'AZUL' THEN 5
+                    ELSE 6
+                END,
+                data_hora ASC
+            LIMIT 5
+        """)
+        proximos = cursor.fetchall()
+
+        return jsonify({
+            "total": total,
+            "atendidos": atendidos,
+            "em_espera": em_espera,
+            "graves": graves,
+            "por_classificacao": por_classificacao,
+            "proximos": proximos
+        }), 200
+
+    except Exception as e:
+        print("ERRO DASHBOARD:", e)
+        return jsonify({"erro": "Erro ao carregar dashboard"}), 500
+
     finally:
         cursor.close()
         conexao.close()
