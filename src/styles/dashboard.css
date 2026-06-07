@@ -198,6 +198,7 @@ body {
     border-radius: 12px;
     margin-bottom: 10px;
 }
+<<<<<<< Updated upstream
 
 .alerta-grave {
     background: rgba(229, 57, 53, 0.15);
@@ -243,4 +244,14 @@ footer {
     #topbar h1 {
         font-size: 26px;
     }
+=======
+footer {
+    color: #555;
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    width: 100%;
+    margin-top: auto;
+
+>>>>>>> Stashed changes
 }

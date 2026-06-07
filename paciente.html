@@ -8,7 +8,6 @@
     <title>VitalClass - Paciente</title>
 </head>
 <body>
-
     <div id="topbar">
         <img id="img" src="src/image/VitalClass.png">
         <h2>Paciente</h2>
@@ -18,52 +17,243 @@
     <div id="principalDiv">
 
         <div id="infoPaciente">
-            <h3>Paciente</h3>
+            <h3>Buscar Paciente</h3>
             <hr>
             <div id="camposLinha1">
-                <input type="text" placeholder="Nome Paciente">
-                <select type="text" placeholder="Sexo">
+                <input type="text"   id="buscarNome" placeholder="Buscar por Nome" oninput="buscarPor('nome')">
+                <input type="text"   id="buscarCpf"  placeholder="Buscar por CPF"  oninput="buscarPor('cpf')">
+            </div>
+        </div>
+
+        <div id="listaSugestoes"></div>
+
+        <div id="resultadoBusca" style="display:none;">
+            <h3>Dados do Paciente</h3>
+            <hr>
+            <div id="camposLinha1">
+                <input type="text"   id="nomeExibido"     placeholder="Nome"     readonly>
+                <select id="sexoExibido" disabled>
                     <option value="" disabled selected>Sexo</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
                 </select>
-                <input type="number" placeholder="Idade">
-                
+                <input type="number" id="idadeExibida"    placeholder="Idade"    readonly>
             </div>
             <div id="camposLinha2">
+<<<<<<< Updated upstream
                 <input type="text" placeholder="Alergias">
                 <input type="number" placeholder="CPF">
                 <input type="number" placeholder="Telefone">
                 <button class="btnAcao">Gerar Relatorio</button>
                 <button class="btnAcao">Alterar Informações</button>
+=======
+                <input type="text"   id="cpfExibido"      placeholder="CPF"      readonly>
+                <input type="text"   id="telefoneExibido" placeholder="Telefone" readonly>
+>>>>>>> Stashed changes
             </div>
         </div>
 
-        <h3 id="tituloHistorico">Histórico de Triagem</h3>
-
-        <div id="list">
-            <div class="paciente">
-                <span class="urgente laranja"></span>
-                <p class="nome">Paciente Atendido !</p>
-                <span class="hora">14:22</span>
-                <span class="data">23/04/2025</span>
-            </div>
-            <div class="paciente">
-                <span class="urgente azul"></span>
-                <p class="nome">Paciente Atendido !</p>
-                <span class="hora">23:40</span>
-                <span class="data">03/01/2026</span>
-            </div>
-        </div>
+        <h3 id="tituloHistorico" style="display:none;">Histórico de Triagem</h3>
+        <div id="list"></div>
 
     </div>
-<footer>
-    <p>VitalClass © 2026 - Triagem Inteligente</p>
-</footer>
-<script>
-if (!localStorage.getItem("token")) {
-    window.location.href = "index.html";
-}
-</script>
+
+    <footer>
+        <p>VitalClass © 2026 - Triagem Inteligente</p>
+    </footer>
+
+    <div id="areaImpressao">
+        <div id="conteudoImpressao"></div>
+    </div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:5005";
+
+        if (!localStorage.getItem("token")) {
+            window.location.href = "index.html";
+        }
+
+        let timeoutBusca  = null;
+        let pacienteAtual = null;
+
+        function buscarPor(tipo) {
+            clearTimeout(timeoutBusca);
+
+            const val = document.getElementById(tipo === 'cpf' ? 'buscarCpf' : 'buscarNome').value.trim();
+
+            if (val.length < 2) {
+                document.getElementById("listaSugestoes").innerHTML = "";
+                document.getElementById("resultadoBusca").style.display = "none";
+                document.getElementById("tituloHistorico").style.display = "none";
+                document.getElementById("list").innerHTML = "";
+                return;
+            }
+
+            timeoutBusca = setTimeout(async () => {
+                const token = localStorage.getItem("token");
+                const param = tipo === 'cpf' ? `cpf=${encodeURIComponent(val)}` : `nome=${encodeURIComponent(val)}`;
+                try {
+                    const resp  = await fetch(`${API_URL}/pacientes?${param}`, {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    const dados = await resp.json();
+                    renderizarSugestoes(dados);
+                } catch (e) {
+                    console.error("Erro ao buscar:", e);
+                }
+            }, 400);
+        }
+
+        function renderizarSugestoes(pacientes) {
+            const lista = document.getElementById("listaSugestoes");
+            if (!pacientes.length) {
+                lista.innerHTML = `<p class="sem-resultado">Nenhum paciente encontrado.</p>`;
+                return;
+            }
+            lista.innerHTML = pacientes.map(p => `
+                <div class="sugestao" onclick="selecionarPaciente('${encodeURIComponent(JSON.stringify(p))}')">
+                    <span class="urgente ${(p.classificacao || 'azul').toLowerCase()}"></span>
+                    <span>${p.nome}</span>
+                    <span class="cpf-tag">${p.cpf || ''}</span>
+                    <span class="data">${p.ultima_triagem ? formatarData(p.ultima_triagem) : 'Sem triagem'}</span>
+                </div>
+            `).join("");
+        }
+
+        async function selecionarPaciente(enc) {
+            const p = JSON.parse(decodeURIComponent(enc));
+            pacienteAtual = p;
+
+            document.getElementById("listaSugestoes").innerHTML     = "";
+            document.getElementById("buscarNome").value             = p.nome;
+            document.getElementById("nomeExibido").value            = p.nome;
+            document.getElementById("idadeExibida").value           = p.idade || "";
+            document.getElementById("cpfExibido").value             = p.cpf || "";
+            document.getElementById("telefoneExibido").value        = p.telefone || "";
+
+            const sel = document.getElementById("sexoExibido");
+            Array.from(sel.options).forEach(o => { o.selected = o.value === p.sexo; });
+
+            document.getElementById("resultadoBusca").style.display  = "block";
+            document.getElementById("tituloHistorico").style.display = "block";
+
+            const token = localStorage.getItem("token");
+            try {
+                const resp    = await fetch(`${API_URL}/pacientes/${encodeURIComponent(p.nome)}/triagens`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                const triagens = await resp.json();
+                renderizarHistorico(triagens, p);
+            } catch (e) {
+                console.error("Erro ao carregar histórico:", e);
+            }
+        }
+
+        function renderizarHistorico(triagens, paciente) {
+            const list = document.getElementById("list");
+            if (!triagens.length) {
+                list.innerHTML = `<p class="sem-resultado">Nenhuma triagem encontrada.</p>`;
+                return;
+            }
+
+            list.innerHTML = triagens.map((t, idx) => {
+                const dt      = new Date(t.data_hora);
+                const hora    = dt.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+                const data    = dt.toLocaleDateString("pt-BR");
+                const classe  = (t.classificacao || "azul").toLowerCase();
+                const proto   = t.protocolo ? `<span class="badge-proto">${t.protocolo}</span>` : "";
+
+                return `
+                    <div class="paciente" id="triagem-${t.id}">
+                        <span class="urgente ${classe}"></span>
+                        <p class="nome">${t.classificacao || "Sem classificação"} ${proto}</p>
+                        <span class="hora">${hora}</span>
+                        <span class="data">${data}</span>
+                        <span class="status-tag">${t.status || ""}</span>
+                        <button class="btn-imprimir" onclick="imprimirTriagem(${idx})">🖨️ Imprimir</button>
+                        <button class="btn-deletar"  onclick="deletarTriagem(${t.id})">🗑️ Apagar</button>
+                    </div>
+                `;
+            }).join("");
+
+            document.getElementById("list").dataset.triagens = JSON.stringify(triagens);
+            document.getElementById("list").dataset.paciente = JSON.stringify(paciente);
+        }
+
+        async function deletarTriagem(id) {
+            const confirmar = confirm("Tem certeza que deseja apagar esta triagem?");
+            if (!confirmar) return;
+
+            const token = localStorage.getItem("token");
+            try {
+                const resp = await fetch(`${API_URL}/triagem/${id}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (resp.ok) {
+                    document.getElementById(`triagem-${id}`).remove();
+                    alert("Triagem apagada com sucesso!");
+                } else {
+                    alert("Erro ao apagar triagem.");
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Erro de conexão.");
+            }
+        }
+
+        function imprimirTriagem(idx) {
+            const triagens = JSON.parse(document.getElementById("list").dataset.triagens);
+            const paciente = JSON.parse(document.getElementById("list").dataset.paciente);
+            const t        = triagens[idx];
+            const dt       = new Date(t.data_hora);
+            const corLabel = {
+                VERMELHO: "🔴 VERMELHO — Emergência",
+                LARANJA:  "🟠 LARANJA — Muito Urgente",
+                AMARELO:  "🟡 AMARELO — Urgente",
+                VERDE:    "🟢 VERDE — Pouco Urgente",
+                AZUL:     "🔵 AZUL — Não Urgente",
+            };
+
+            document.getElementById("conteudoImpressao").innerHTML = `
+                <div class="rel-header">
+                    <h1>VitalClass</h1>
+                    <p class="rel-sub">Relatório de Triagem</p>
+                    <p class="rel-data">Emitido em: ${new Date().toLocaleString("pt-BR")}</p>
+                </div>
+                <hr>
+                <h2>Dados do Paciente</h2>
+                <table class="rel-table">
+                    <tr><td><strong>Nome</strong></td><td>${paciente.nome}</td></tr>
+                    <tr><td><strong>Sexo</strong></td><td>${paciente.sexo || "—"}</td></tr>
+                    <tr><td><strong>Idade</strong></td><td>${paciente.idade ? paciente.idade + " anos" : "—"}</td></tr>
+                    <tr><td><strong>CPF</strong></td><td>${paciente.cpf || "—"}</td></tr>
+                    <tr><td><strong>Telefone</strong></td><td>${paciente.telefone || "—"}</td></tr>
+                </table>
+                <hr>
+                <h2>Dados da Triagem</h2>
+                <table class="rel-table">
+                    <tr><td><strong>Data/Hora</strong></td><td>${dt.toLocaleString("pt-BR")}</td></tr>
+                    <tr><td><strong>Classificação</strong></td><td>${corLabel[t.classificacao] || t.classificacao}</td></tr>
+                    <tr><td><strong>Protocolo</strong></td><td>${t.protocolo || "—"}</td></tr>
+                    <tr><td><strong>Especialidade</strong></td><td>${t.especialidade || "—"}</td></tr>
+                    <tr><td><strong>Status</strong></td><td>${t.status || "—"}</td></tr>
+                    <tr><td><strong>Escala de Dor</strong></td><td>${t.escala_dor != null ? t.escala_dor + "/6" : "—"}</td></tr>
+                </table>
+                <hr>
+                <h2>Sintomas e Observações</h2>
+                <table class="rel-table">
+                    <tr><td><strong>Sintoma</strong></td><td>${t.sintoma || "—"}</td></tr>
+                    <tr><td><strong>Observações</strong></td><td>${t.descricao || "—"}</td></tr>
+                </table>
+                <div class="rel-footer"><p>VitalClass © 2026 - Triagem Inteligente</p></div>
+            `;
+            window.print();
+        }
+
+        function formatarData(d) {
+            return new Date(d).toLocaleDateString("pt-BR");
+        }
+    </script>
 </body>
 </html>

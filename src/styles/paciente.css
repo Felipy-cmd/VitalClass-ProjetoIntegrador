@@ -29,7 +29,24 @@ h2 {
     color: #fff;
     font-size: 30px;
     font-weight: 500;
+<<<<<<< Updated upstream
 }
+=======
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn-voltar {
+    background: #0E0E53;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-voltar:hover { background: #2626ff; }
+>>>>>>> Stashed changes
 
 #principalDiv {
     display: flex;
@@ -39,6 +56,7 @@ h2 {
     gap: 24px;
 }
 
+<<<<<<< Updated upstream
 #infoPaciente {
     background-color: #171717;
     border-radius: 10px;
@@ -47,6 +65,10 @@ h2 {
 
 #infoPaciente h3,
 #tituloHistorico {
+=======
+#infoPaciente h3,
+#resultadoBusca h3 {
+>>>>>>> Stashed changes
     color: #fff;
     font-size: 22px;
     font-weight: 400;
@@ -66,8 +88,14 @@ hr {
     margin-bottom: 12px;
 }
 
+<<<<<<< Updated upstream
 input,
 select {
+=======
+#camposLinha1 input:first-child { flex: 2; }
+
+#camposLinha1 input {
+>>>>>>> Stashed changes
     flex: 1;
     background: #2a2a2a;
     border: 1px solid transparent;
@@ -105,6 +133,7 @@ input[readonly] {
     height: 42px;
 }
 
+<<<<<<< Updated upstream
 .btnAcao:hover,
 .btn-voltar:hover {
     background: #2626ff;
@@ -117,6 +146,9 @@ input[readonly] {
 #btnSalvar:hover {
     background-color: #2e7d32;
 }
+=======
+.btnAcao:hover { background: #2626ff; }
+>>>>>>> Stashed changes
 
 #tituloHistorico {
     text-align: center;
@@ -167,10 +199,29 @@ input[readonly] {
 
 .vermelho { background-color: #e53935; }
 .laranja  { background-color: #fb8c00; }
+<<<<<<< Updated upstream
 .amarelo  { background-color: #fbc02d; }
 .verde    { background-color: #43a047; }
 .azul     { background-color: #1a1adb; }
 
+=======
+.amarelo  { background-color: #fdd835; }
+.verde    { background-color: #43a047; }
+.azul     { background-color: #1a1adb; }
+
+select {
+    background-color: #2a2a2a;
+    color: #ddd;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    height: 40px;
+}
+
+option[disabled] { color: #888; }
+option { background-color: #2a2a2a; color: #ddd; }
+
+>>>>>>> Stashed changes
 footer {
     color: #555;
     text-align: center;
@@ -180,6 +231,7 @@ footer {
     margin-top: 30px;
 }
 
+<<<<<<< Updated upstream
 @media (max-width: 768px) {
     #topbar,
     #principalDiv {
@@ -206,4 +258,94 @@ footer {
     h2 {
         font-size: 22px;
     }
+=======
+/* ── Sugestões de busca ── */
+#listaSugestoes {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sugestao {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #1e1e1e;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.sugestao:hover { background: #2a2a2a; }
+
+.sem-resultado {
+    color: #666;
+    font-size: 13px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.badge-proto {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #0E0E53;
+    color: #fff;
+    margin-left: 8px;
+}
+
+.status-tag {
+    font-size: 12px;
+    color: #888;
+    margin-left: auto;
+}
+
+@media print {
+    body > *         { display: none !important; }
+    #areaImpressao   { display: block !important; color: #000; }
+    #areaImpressao h2 { margin-bottom: 16px; }
+    #areaImpressao p  { margin: 4px 0; }
+    #areaImpressao .urgente {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+
+.btn-imprimir {
+    background: #0E0E53;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.btn-imprimir:hover { background: #2626ff; }
+
+
+#areaImpressao { display: none; }
+
+@media print {
+    body > *       { display: none !important; }
+    #areaImpressao { display: block !important; color: #000; font-family: sans-serif; padding: 20px; }
+
+    .rel-header    { text-align: center; margin-bottom: 16px; }
+    .rel-header h1 { font-size: 28px; color: #0E0E53; }
+    .rel-sub       { font-size: 16px; color: #555; }
+    .rel-data      { font-size: 12px; color: #999; margin-top: 4px; }
+
+    h2 { font-size: 16px; margin: 14px 0 8px; color: #0E0E53; }
+
+    .rel-table          { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+    .rel-table td       { padding: 6px 10px; font-size: 13px; border-bottom: 1px solid #eee; }
+    .rel-table td:first-child { width: 200px; color: #555; }
+
+    hr { border: none; border-top: 1px solid #ccc; margin: 12px 0; }
+
+    .rel-footer { text-align: center; margin-top: 30px; font-size: 11px; color: #aaa; }
+>>>>>>> Stashed changes
 }

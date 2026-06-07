@@ -5,7 +5,10 @@ async function fazerLogin() {
     const senha = document.getElementById("senha").value;
     const erro  = document.getElementById("erroLogin");
 
+<<<<<<< Updated upstream
     // Esconde o erro antes de tentar
+=======
+>>>>>>> Stashed changes
     erro.classList.remove("visivel");
 
     try {

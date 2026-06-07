@@ -102,6 +102,7 @@ input:disabled {
     padding: 11px 26px;
     font-size: 14px;
     cursor: pointer;
+<<<<<<< Updated upstream
 }
 
 .btnConfirmar:hover,
@@ -246,3 +247,8 @@ input:disabled {
         flex-wrap: wrap;
     }
 }
+=======
+    align-self: flex-end;
+    margin-bottom: 10px;
+}
+>>>>>>> Stashed changes
